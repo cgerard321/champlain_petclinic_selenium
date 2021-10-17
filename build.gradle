@@ -1,0 +1,35 @@
+plugins {
+    id 'java'
+}
+
+group 'com.petclinic.selenium'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    junitVersion = '5.8.1'
+}
+
+sourceCompatibility = '8'
+targetCompatibility = '8'
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+dependencies {
+    implementation group: 'commons-io', name: 'commons-io', version: '2.11.0'
+    compile group: 'io.github.bonigarcia', name: 'selenium-jupiter', version: '3.3.5'
+    testImplementation('org.seleniumhq.selenium:selenium-java:3.141.59')
+    testImplementation('org.hamcrest:hamcrest:2.2')
+
+    testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
+}
+
+test {
+    useJUnitPlatform()
+}
