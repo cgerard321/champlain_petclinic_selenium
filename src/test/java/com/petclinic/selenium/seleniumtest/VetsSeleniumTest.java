@@ -74,12 +74,17 @@ public class VetsSeleniumTest {
 
         driver.findElement(By.linkText("Veterinarians")).click();
 
-//        Select dropdown = new Select(driver.findElement(By.id("filterOption")));
-//        dropdown.selectByValue("All");
+        Select dropdown = new Select(driver.findElement(By.id("filterOption")));
+        dropdown.selectByValue("Available");
 
-        WebElement rows = driver.findElement(By.xpath("//table[@class='table table-striped']"));
-        List<WebElement> TotalRowsList = rows.findElements(By.tagName("tr"));
-        assertThat(TotalRowsList.size(), is(7));
+        WebElement td1 = driver.findElement(By.xpath("//*[@id=\"bg\"]/div/div/div/ui-view/vet-list/table/tbody/tr[1]/td[2]"));
+        assertThat(td1.getText(), is("James Carter"));
+
+        WebElement td2 = driver.findElement(By.xpath("//*[@id=\"bg\"]/div/div/div/ui-view/vet-list/table/tbody/tr[2]/td[2]"));
+        assertThat(td2.getText(), is("Helen Leary"));
+
+        WebElement td3 = driver.findElement(By.xpath("//*[@id=\"bg\"]/div/div/div/ui-view/vet-list/table/tbody/tr[3]/td[2]"));
+        assertThat(td3.getText(), is("Linda Douglas"));
         try {
             Thread.sleep(2000);
         } catch (InterruptedException e) {
