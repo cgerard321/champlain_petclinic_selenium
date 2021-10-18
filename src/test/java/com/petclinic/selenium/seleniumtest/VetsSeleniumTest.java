@@ -19,7 +19,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
 @ExtendWith(SeleniumExtension.class)
-public class VetsSeleniumTest {
+public class VetsSeleniumTest{
     ChromeDriver driver;
     private final String SCREENSHOTS = "./src/test/onDemandScreenshots";
 
