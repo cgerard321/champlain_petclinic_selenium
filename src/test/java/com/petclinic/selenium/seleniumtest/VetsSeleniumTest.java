@@ -19,7 +19,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
 @ExtendWith(SeleniumExtension.class)
-public class VetsSeleniumTest{
+public class VetsSeleniumTest {
     ChromeDriver driver;
     private final String SCREENSHOTS = "./src/test/onDemandScreenshots";
 
@@ -48,6 +48,7 @@ public class VetsSeleniumTest{
     @Test
     @DisplayName("test_filter-vets-all")
     void test_filter_vets_all() throws Exception {
+    void test_filter_vets_all(TestInfo testInfo) throws Exception {
         driver.get("http://localhost:8080");
         driver.manage().window().maximize();
 
