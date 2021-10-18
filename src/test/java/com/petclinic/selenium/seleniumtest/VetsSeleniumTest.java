@@ -47,7 +47,7 @@ public class VetsSeleniumTest {
 
     @Test
     @DisplayName("test_filter-vets-all")
-    void test_filter_vets_all(TestInfo testInfo) throws Exception {
+    void test_filter_vets_all() throws Exception {
         driver.get("http://localhost:8080");
         driver.manage().window().maximize();
 
@@ -68,7 +68,7 @@ public class VetsSeleniumTest {
 
     @Test
     @DisplayName("test_filter-vets-available")
-    void test_filter_vets_available(TestInfo testInfo) throws Exception {
+    void test_filter_vets_available() throws Exception {
         driver.get("http://localhost:8080");
         driver.manage().window().maximize();
 
@@ -85,6 +85,32 @@ public class VetsSeleniumTest {
 
         WebElement td3 = driver.findElement(By.xpath("//*[@id=\"bg\"]/div/div/div/ui-view/vet-list/table/tbody/tr[3]/td[2]"));
         assertThat(td3.getText(), is("Linda Douglas"));
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    @DisplayName("test_filter-vets-unavailable")
+    void unavailable() throws Exception {
+        driver.get("http://localhost:8080");
+        driver.manage().window().maximize();
+
+        driver.findElement(By.linkText("Veterinarians")).click();
+
+        Select dropdown = new Select(driver.findElement(By.id("filterOption")));
+        dropdown.selectByValue("Unavailable");
+
+        WebElement td1 = driver.findElement(By.xpath("//*[@id=\"bg\"]/div/div/div/ui-view/vet-list/table/tbody/tr[1]/td[2]"));
+        assertThat(td1.getText(), is("Rafael Ortega"));
+
+        WebElement td2 = driver.findElement(By.xpath("//*[@id=\"bg\"]/div/div/div/ui-view/vet-list/table/tbody/tr[2]/td[2]"));
+        assertThat(td2.getText(), is("Henry Stevens"));
+
+        WebElement td3 = driver.findElement(By.xpath("//*[@id=\"bg\"]/div/div/div/ui-view/vet-list/table/tbody/tr[3]/td[2]"));
+        assertThat(td3.getText(), is("Sharon Jenkins"));
         try {
             Thread.sleep(2000);
         } catch (InterruptedException e) {
