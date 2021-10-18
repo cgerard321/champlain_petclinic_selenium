@@ -19,7 +19,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
 @ExtendWith(SeleniumExtension.class)
-public class VetsSeleniumTest {
+public class VetsSeleniumTest{
     ChromeDriver driver;
     private final String SCREENSHOTS = "./src/test/onDemandScreenshots";
 
@@ -53,17 +53,17 @@ public class VetsSeleniumTest {
 
         driver.findElement(By.linkText("Veterinarians")).click();
 
-//        Select dropdown = new Select(driver.findElement(By.id("filterOption")));
-//        dropdown.selectByValue("All");
-
         WebElement rows = driver.findElement(By.xpath("//table[@class='table table-striped']"));
         List<WebElement> TotalRowsList = rows.findElements(By.tagName("tr"));
+
         assertThat(TotalRowsList.size(), is(7));
+
         try {
             Thread.sleep(2000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        driver.quit();
     }
 
     @Test
@@ -90,6 +90,7 @@ public class VetsSeleniumTest {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        driver.quit();
     }
 
     @Test
@@ -116,5 +117,6 @@ public class VetsSeleniumTest {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        driver.quit();
     }
 }
