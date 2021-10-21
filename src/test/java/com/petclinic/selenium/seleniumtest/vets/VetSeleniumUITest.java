@@ -1,8 +1,7 @@
-package com.petclinic.vets.presentationlayer;
+package com.petclinic.selenium.seleniumtest.vets;
 
 import io.github.bonigarcia.seljup.SeleniumExtension;
 import org.apache.commons.io.FileUtils;
-import org.aspectj.util.FileUtil;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.openqa.selenium.*;
@@ -10,7 +9,6 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
-import org.springframework.test.context.event.annotation.AfterTestMethod;
 
 import java.io.File;
 import java.util.concurrent.TimeUnit;
@@ -54,11 +52,6 @@ public class VetSeleniumUITest {
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
     }
 
-    @AfterTestMethod
-    public void screenShot() throws Exception{
-        driver.quit();
-    }
-
     @Test
     @DisplayName("Test_Vet_Modal_Information_Presence")
     public void testModalAppear(TestInfo testInfo) throws Exception{
@@ -89,6 +82,7 @@ public class VetSeleniumUITest {
             else{
                 takeSnapShot(driver, SCREENSHOTS+"/fail/"+method+"_"+System.currentTimeMillis()+".png");
             }
+            driver.quit();
         }
     }
 }
