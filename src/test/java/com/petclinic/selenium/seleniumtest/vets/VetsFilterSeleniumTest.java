@@ -139,4 +139,28 @@ public class VetsFilterSeleniumTest {
         }
         driver.quit();
     }
+
+    @Test
+    @DisplayName("test-delete-vet")
+    void test_delete_vet() throws Exception {
+        driver.get("http://localhost:8080");
+        driver.manage().window().maximize();
+
+        driver.findElement(By.linkText("Veterinarians")).click();
+        WebElement deleteButton = driver.findElement(By.xpath("//*[@id=\"bg\"]/div/div/div/ui-view/vet-list/table/tbody/tr[1]/td[7]/a"));
+        deleteButton.click();
+
+        //find the pop up
+
+        //click confirm then delete it
+
+
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        driver.quit();
+    }
+
 }
