@@ -14,6 +14,7 @@ import org.openqa.selenium.support.ui.Select;
 
 import java.io.File;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
@@ -46,56 +47,80 @@ public class VISE_SeleniumTests {
         //Copy file at destination
         FileUtils.copyFile(SrcFile, DestFile);
     }
-
     @Test
     @DisplayName("test_create_a_visit")
     void test_create_a_visit(TestInfo testInfo) throws Exception {
         driver.get("http://localhost:8080");
         driver.manage().window().maximize();
 
-      driver.findElement(By.linkText("Owners")).click();
+        //enter authentication information
+        driver.findElement(By.id("email")).sendKeys("admin");
+        driver.findElement(By.id("pwd")).sendKeys("admin");
+        driver.findElement(By.id("button")).click();
+
+
+        TimeUnit.SECONDS.sleep(5);
+
+
+
+
+
         //navigation to visits page
+        driver.findElement(By.linkText("Owners")).click();
+        TimeUnit.SECONDS.sleep(2);
         WebElement a1 = driver.findElement(By.xpath("//*[@id=\"navbarSupportedContent\"]/ul[1]/li[4]/div/a[1]"));
         a1.click();
-        Thread.sleep(2000); // VERY VERY VERY NECESSARY PART OF THE CODE. Without the line it will try to click on something that doesn't exist yet.
+        TimeUnit.SECONDS.sleep(2);; // VERY VERY VERY NECESSARY PART OF THE CODE. Without the line it will try to click on something that doesn't exist yet.
         a1 = driver.findElement(By.linkText("Betty Davis"));
         a1.click();
-        Thread.sleep(2000);
+        TimeUnit.SECONDS.sleep(2);
         a1 = driver.findElement(By.linkText("Add Visit"));
         a1.click();
 
 
 
         //getting a vet
-        driver.findElement(By.id("selectedVet")).click();
-        Thread.sleep(2000);
+        //driver.findElement(By.id("selectedVet")).click();
+
 
 
         //Selecting the vet : "Helen"
-        Thread.sleep(2000);
+        TimeUnit.SECONDS.sleep(2);
         driver.findElement(By.xpath("//*[@id=\"selectedVet\"]/option[1]")).click();
-        Thread.sleep(2000);
-        System.out.println(driver.findElement(By.xpath("//*[@id=\"selectedVet\"]/option[3]")).getText() +"asdwad");
+        TimeUnit.SECONDS.sleep(2);
+        System.out.println(driver.findElement(By.xpath("//*[@id=\"selectedVet\"]/option[3]")).getText() +" : vetname");
+
+        // Necessary scroll
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollBy(0,250)", "");
+
         driver.findElement(By.xpath("//*[@id=\"selectedVet\"]/option[3]")).click();
+        TimeUnit.SECONDS.sleep(2);
+
 
         //typing TestVisitDescription inside of the text box labelled "description"
+
         driver.findElement(By.xpath("//*[@id=\'description_textarea\']")).sendKeys("TestVisitDescription");
 
+        TimeUnit.SECONDS.sleep(2);
 
-        driver.findElement(By.id("submit_button")).click();
+       driver.findElement(By.id("submit_button")).click();
+
+
+
 
         // getting back to the betty davis customer
         // CHANGE IN THE FUTURE
+
         Thread.sleep(2000);
         a1 = driver.findElement(By.linkText("Betty Davis"));
         a1.click();
         Thread.sleep(2000);
-        a1 = driver.findElement(By.linkText("Add Visit"));
-        a1.click();
 
-        WebElement createdTestVisit = driver.findElement(By.xpath("//*[@id=\"bg\"]/div/div/div/ui-view/visits/table[1]/tbody/tr[3]/td[2]"));
 
-        assertThat(createdTestVisit.getText(), is("TestVisitDescription") );
+      WebElement createdTestVisit = driver.findElement(By.xpath("//*[@id=\"bg\"]/div/div/div/ui-view/owner-details/table[2]/tbody/tr/td[2]/table/tbody/tr[3]/td[2]"));
+
+     assertThat(createdTestVisit.getText(), is("TestVisitDescription") );
 
 
         try {
