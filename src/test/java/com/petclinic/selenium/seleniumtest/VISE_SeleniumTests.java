@@ -88,8 +88,9 @@ public class VISE_SeleniumTests {
         TimeUnit.SECONDS.sleep(2);
         driver.findElement(By.xpath("//*[@id=\"selectedVet\"]/option[1]")).click();
         TimeUnit.SECONDS.sleep(2);
-        System.out.println(driver.findElement(By.xpath("//*[@id=\"selectedVet\"]/option[3]")).getText() +" : vetname");
-
+        String selectedVet = driver.findElement(By.xpath("//*[@id=\"selectedVet\"]/option[3]")).getText();
+        System.out.println(selectedVet +" : vetname");
+        assertThat(selectedVet, is("Helen Leary"));
         // Necessary scroll
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("window.scrollBy(0,250)", "");
