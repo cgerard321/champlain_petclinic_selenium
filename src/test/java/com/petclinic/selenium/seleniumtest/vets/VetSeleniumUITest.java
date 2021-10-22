@@ -45,11 +45,46 @@ public class VetSeleniumUITest {
     }
 
     @BeforeEach
-    public void setup() throws InterruptedException {
+    public void setup() throws Exception{
+        boolean error = false;
+        try {
         driver.get("http://localhost:8080/#!/vets");
         driver.manage().window().maximize();
 
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        //Locate the login header
+        WebElement loginHeader = driver.findElement(By.xpath("//*[@id=\"bg\"]/div/div/div/ui-view/login-form/div/div/h2"));
+        TimeUnit.SECONDS.sleep(2);
+
+        //Enter email information
+        WebElement emailBox = driver.findElement(By.id("email"));
+        emailBox.sendKeys("admin");
+        TimeUnit.SECONDS.sleep(2);
+
+        //Enter password information
+        WebElement passwordBox = driver.findElement(By.id("pwd"));
+        passwordBox.sendKeys("admin");
+        TimeUnit.SECONDS.sleep(2);
+
+        //Press the login button
+        WebElement loginButton = driver.findElement(By.id("button"));
+        loginButton.click();
+        TimeUnit.SECONDS.sleep(2);
+        driver.get("http://localhost:8080/#!/vets");
+
+        }catch (AssertionError e){
+            e.printStackTrace();
+            error = true;
+            throw new AssertionError(e);
+        }
+        catch (InterruptedException e){
+            e.printStackTrace();
+        }
+        finally {
+            if(error == true) {
+                takeSnapShot(driver, SCREENSHOTS+"/fail/vetLoginFailedForModalTest_"+System.currentTimeMillis()+".png");
+            }
+        }
     }
 
     @Test
@@ -60,13 +95,15 @@ public class VetSeleniumUITest {
         //assert
         //open web page
         try {
+
             Actions actions = new Actions(driver);
             WebElement info = driver.findElement(By.className("info"));
             actions.moveToElement(info);
-            actions.click().build().perform();
+            actions.build().perform();
             Thread.sleep(1000);
             WebElement modal = driver.findElement(By.className("modalOn"));
             assertThat(modal.isDisplayed(), is(true));
+
         }catch (AssertionError e){
             e.printStackTrace();
             error = true;
