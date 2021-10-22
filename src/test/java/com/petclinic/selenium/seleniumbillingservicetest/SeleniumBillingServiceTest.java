@@ -13,6 +13,7 @@ import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.io.File;
+import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
@@ -85,6 +86,23 @@ public class SeleniumBillingServiceTest {
 
         WebElement billsTab = driver.findElement(By.id("navbarDropdown1"));
         billsTab.click();
+
+        WebElement billHistoryLink = driver.findElement(By.linkText("Bills"));
+        billHistoryLink.click();
+
+        WebElement table = driver.findElement(By.xpath("//table[@class='table table-striped']"));
+        List<WebElement> rows = table.findElements(By.tagName("tr"));
+
+        String method = testInfo.getDisplayName();
+        takeSnapShot(driver, SCREENSHOTS + "\\" + method + "_" + System.currentTimeMillis() + ".png");
+
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        assertThat(rows.size(), is(6));
 
         driver.quit();
     }
