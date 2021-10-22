@@ -8,6 +8,7 @@ import org.junit.jupiter.api.TestInfo;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
@@ -15,6 +16,7 @@ import java.io.File;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ExtendWith(SeleniumExtension.class)
 public class SeleniumBillingServiceTest {
@@ -61,6 +63,28 @@ public class SeleniumBillingServiceTest {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+
+        driver.quit();
+    }
+
+    @Test
+    @DisplayName("test_petclinic")
+    public void takeBillingServiceHistoryPageSnapshot(TestInfo testInfo) throws Exception {
+        Actions act = new Actions(driver);
+
+        driver.get("http://localhost:8080/#!/login");
+        driver.manage().window().maximize();
+
+        WebElement loginLabel = driver.findElement(By.id("email"));
+        WebElement passLabel = driver.findElement(By.id("pwd"));
+        WebElement loginButton = driver.findElement(By.id("button"));
+
+        loginLabel.sendKeys("admin");
+        passLabel.sendKeys("admin");
+        act.doubleClick(loginButton).perform();
+
+        WebElement billsTab = driver.findElement(By.id("navbarDropdown1"));
+        billsTab.click();
 
         driver.quit();
     }
