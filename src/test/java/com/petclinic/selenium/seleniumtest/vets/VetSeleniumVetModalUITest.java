@@ -16,6 +16,13 @@ import java.util.concurrent.TimeUnit;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
+/**
+ * User: @SmoothWin
+ * Date: 2021-10-21
+ * Ticket: feat(VETS-CPC-399): Vet_Service_Mobile_Version
+ * Implemented selenium test for the vet modal that is associated to the story ticket above
+ */
+
 @ExtendWith(SeleniumExtension.class)
 public class VetSeleniumVetModalUITest {
 
