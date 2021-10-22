@@ -33,6 +33,7 @@ hs_err_pid*
 # selenium screenshots
 src/test/onDemandScreenshots
 src/test/onFailureScreenshots
+screenshots/
 
 ### IntelliJ IDEA ###
 .idea

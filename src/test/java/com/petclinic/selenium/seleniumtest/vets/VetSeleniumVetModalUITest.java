@@ -17,12 +17,12 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
 @ExtendWith(SeleniumExtension.class)
-public class VetSeleniumUITest {
+public class VetSeleniumVetModalUITest {
 
     ChromeDriver driver;
-    private final String SCREENSHOTS = "./src/test/screenshots/";
+    private final String SCREENSHOTS = "./src/test/screenshots/vet_modal";
 
-    public VetSeleniumUITest(ChromeDriver driver){
+    public VetSeleniumVetModalUITest(ChromeDriver driver){
         this.driver = driver;
 
         DesiredCapabilities dc = new DesiredCapabilities();
