@@ -86,6 +86,8 @@ public class VetSeleniumVetModalUITest {
         }
         catch (InterruptedException e){
             e.printStackTrace();
+            error = true;
+            throw new AssertionError(e);
         }
         finally {
             if(error == true) {
