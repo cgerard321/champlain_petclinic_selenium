@@ -147,13 +147,13 @@ public class VetsFilterSeleniumTest {
         driver.manage().window().maximize();
 
         driver.findElement(By.linkText("Veterinarians")).click();
+        //to allow for load time of data
+        Thread.sleep(2000);
         WebElement deleteButton = driver.findElement(By.xpath("//*[@id=\"bg\"]/div/div/div/ui-view/vet-list/table/tbody/tr[1]/td[7]/a"));
         deleteButton.click();
 
-        //find the pop up
-
-        //click confirm then delete it
-
+        WebElement popup = driver.findElement(By.xpath(""));
+        assertThat(popup.getText(), is("Are you sure you want to delete this vet?"));
 
         try {
             Thread.sleep(2000);
