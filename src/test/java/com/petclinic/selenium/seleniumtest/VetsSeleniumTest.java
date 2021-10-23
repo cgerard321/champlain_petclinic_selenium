@@ -123,6 +123,7 @@ public class VetsSeleniumTest{
     @Test
     @DisplayName("test_detail_vet")
     void test_detail_vet() throws Exception {
+
         driver.manage().window().maximize();
         driver.findElement(By.linkText("Veterinarians")).click();
         driver.findElement(By.xpath("//*[@id=\"bg\"]/div/div/div/ui-view/vet-list/table/tbody/tr[1]/td[2]")).click();
@@ -149,6 +150,11 @@ public class VetsSeleniumTest{
 
         WebElement button2 = driver.findElement(By.xpath("//*[@id=\"bg\"]/div/div/div/ui-view/vet-details/div/div[2]/div/div[2]/div[6]/div/button"));
         assertThat(button2.getText(), is("Hide availabilities"));
+
+        driver.findElement(By.xpath("//*[@id=\"bg\"]/div/div/div/ui-view/vet-details/div/div[2]/div/div[2]/div[6]/div/button")).click();
+
+        assertThat(button.getText(), is("Show availabilities"));
+        
 
         try {
             Thread.sleep(2000);
