@@ -26,3 +26,4 @@ public class VetsCreateSeleniumTest {
         this.driver = driver;
 
         DesiredCapabilities dc = new DesiredCapabilities();
+        dc.setCapability(CapabilityType.UNEXPECTED_ALERT_BEHAVIOUR, UnexpectedAlertBehaviour.IGNORE);
