@@ -73,3 +73,4 @@ public class VetsCreateSeleniumTest {
 
         driver.findElement(By.xpath("//*[@id=\"vetForm\"]/div/div[1]/input")).sendKeys("New");
         driver.findElement(By.xpath("//*[@id=\"vetForm\"]/div/div[2]/input")).sendKeys("User");
+        driver.findElement(By.xpath("//*[@id=\"vetForm\"]/div/div[3]/input")).sendKeys("new@user.com");
