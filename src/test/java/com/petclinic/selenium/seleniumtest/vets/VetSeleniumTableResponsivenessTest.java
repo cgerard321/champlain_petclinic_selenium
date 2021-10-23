@@ -3,7 +3,10 @@ package com.petclinic.selenium.seleniumtest.vets;
 import com.petclinic.selenium.SeleniumLoginTestHelper;
 import io.github.bonigarcia.seljup.SeleniumExtension;
 import org.apache.commons.io.FileUtils;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInfo;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -14,25 +17,17 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.File;
-import java.util.concurrent.TimeUnit;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
-/**
- * User: @SmoothWin
- * Date: 2021-10-21
- * Ticket: feat(VETS-CPC-399): Vet_Service_Mobile_Version
- * Implemented selenium test for the vet modal that is associated to the story ticket above
- */
-
 @ExtendWith(SeleniumExtension.class)
-public class VetSeleniumVetModalUITest {
+public class VetSeleniumTableResponsivenessTest {
     ChromeDriver driver;
     SeleniumLoginTestHelper helper; //You will need this SeleniumLoginTestHelper field
     private final String SCREENSHOTS = "./src/test/screenshots/vet_modal";
 
-    public VetSeleniumVetModalUITest(ChromeDriver driver){
+    public VetSeleniumTableResponsivenessTest(ChromeDriver driver){
         this.driver = driver;
 
         DesiredCapabilities dc = new DesiredCapabilities();
@@ -61,8 +56,8 @@ public class VetSeleniumVetModalUITest {
     }
 
     @Test
-    @DisplayName("Test_Vet_Modal_Information_Presence")
-    public void testModalAppear(TestInfo testInfo) throws Exception{
+    @DisplayName("Test_Vet_Table_FullScreen_Modal_and_Table_data")
+    public void testModalAndTableDataFullScreen(TestInfo testInfo) throws Exception{
         String method = testInfo.getDisplayName();
         boolean error = false;
         //assert
@@ -72,24 +67,32 @@ public class VetSeleniumVetModalUITest {
             wait.until(ExpectedConditions.urlToBe("http://localhost:8080/#!/welcome"));
             helper.getDriver().get("http://localhost:8080/#!/vets");
             wait.until(ExpectedConditions.urlToBe("http://localhost:8080/#!/vets"));
-            Actions actions = new Actions(helper.getDriver());
+            WebElement phone = helper.getDriver().findElement(By.className("vet_phone"));
+            WebElement email = helper.getDriver().findElement(By.className("vet_email"));
+            WebElement modalPhone = helper.getDriver().findElement(By.className("modal_phone"));
+            WebElement modalEmail = helper.getDriver().findElement(By.className("modal_email"));
+            assertThat(phone.isDisplayed(), is(true));
+            assertThat(email.isDisplayed(), is(true));
+
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("info")));
+            Actions actions = new Actions(helper.getDriver());
             WebElement info = helper.getDriver().findElement(By.className("info"));
             actions.moveToElement(info);
             actions.build().perform();
+
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("modalOn")));
             WebElement modal = helper.getDriver().findElement(By.className("modalOn"));
             assertThat(modal.isDisplayed(), is(true));
+            assertThat(modalPhone.isDisplayed(), is(false));
+            assertThat(modalEmail.isDisplayed(), is(false));
+
         }catch (AssertionError e){
             e.printStackTrace();
             error = true;
             throw new AssertionError(e);
         }
         finally {
-            if(error == false) {
-                takeSnapShot(driver, SCREENSHOTS + "/pass/" + method + "_" + System.currentTimeMillis() + ".png");
-            }
-            else{
+            if(error) {
                 takeSnapShot(driver, SCREENSHOTS+"/fail/"+method+"_"+System.currentTimeMillis()+".png");
             }
             helper.getDriver().quit();
