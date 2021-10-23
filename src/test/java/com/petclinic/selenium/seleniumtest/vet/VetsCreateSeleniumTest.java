@@ -72,3 +72,4 @@ public class VetsCreateSeleniumTest {
         driver.findElement(By.xpath("//*[@id=\"bg\"]/div/div/div/ui-view/vet-list/a/button")).click();
 
         driver.findElement(By.xpath("//*[@id=\"vetForm\"]/div/div[1]/input")).sendKeys("New");
+        driver.findElement(By.xpath("//*[@id=\"vetForm\"]/div/div[2]/input")).sendKeys("User");
