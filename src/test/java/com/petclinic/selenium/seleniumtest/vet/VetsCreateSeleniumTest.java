@@ -49,3 +49,4 @@ public class VetsCreateSeleniumTest {
         driver.manage().window().maximize();
 
         driver.findElement(By.xpath("//*[@id=\"email\"]")).sendKeys("admin");
+        driver.findElement(By.xpath("//*[@id=\"pwd\"]")).sendKeys("admin");
