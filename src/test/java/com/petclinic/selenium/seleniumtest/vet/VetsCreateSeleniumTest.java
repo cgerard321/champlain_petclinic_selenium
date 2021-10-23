@@ -80,4 +80,9 @@ public class VetsCreateSeleniumTest {
         driver.findElement(By.xpath("//*[@id=\"vetForm\"]/div/div[9]/div/div/input")).sendKeys("Monday, Tuesday");
         driver.findElement(By.xpath("//*[@id=\"vetForm\"]/div/div[10]/div[1]/label/input")).sendKeys(Keys.SPACE);
         driver.findElement(By.xpath("//*[@id=\"vetForm\"]/div/button")).sendKeys(Keys.SPACE);
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 }
