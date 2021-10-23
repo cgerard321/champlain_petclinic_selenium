@@ -24,3 +24,5 @@ public class VetsCreateSeleniumTest {
 
     public VetsCreateSeleniumTest(ChromeDriver driver) {
         this.driver = driver;
+
+        DesiredCapabilities dc = new DesiredCapabilities();
