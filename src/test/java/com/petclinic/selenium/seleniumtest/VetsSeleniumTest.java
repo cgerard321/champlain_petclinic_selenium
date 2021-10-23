@@ -145,6 +145,11 @@ public class VetsSeleniumTest{
         WebElement button = driver.findElement(By.xpath("//*[@id=\"bg\"]/div/div/div/ui-view/vet-details/div/div[2]/div/div[2]/div[6]/div/button"));
         assertThat(button.getText(), is("Show availabilities"));
 
+        driver.findElement(By.xpath("//*[@id=\"bg\"]/div/div/div/ui-view/vet-details/div/div[2]/div/div[2]/div[6]/div/button")).click();
+
+        WebElement button2 = driver.findElement(By.xpath("//*[@id=\"bg\"]/div/div/div/ui-view/vet-details/div/div[2]/div/div[2]/div[6]/div/button"));
+        assertThat(button2.getText(), is("Hide availabilities"));
+
         try {
             Thread.sleep(2000);
         } catch (InterruptedException e) {
