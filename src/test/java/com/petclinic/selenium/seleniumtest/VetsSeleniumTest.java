@@ -127,6 +127,9 @@ public class VetsSeleniumTest{
         driver.findElement(By.linkText("Veterinarians")).click();
         driver.findElement(By.xpath("//*[@id=\"bg\"]/div/div/div/ui-view/vet-list/table/tbody/tr[1]/td[2]")).click();
 
+        WebElement name = driver.findElement(By.xpath("//*[@id=\"bg\"]/div/div/div/ui-view/vet-details/div/div[2]/div/div[2]/div[1]"));
+        assertThat(name.getText(), is("James Carter"));
+
         try {
             Thread.sleep(2000);
         } catch (InterruptedException e) {
