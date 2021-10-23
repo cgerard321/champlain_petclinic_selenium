@@ -1,21 +1,12 @@
 package com.petclinic.selenium;
 
 import io.github.bonigarcia.seljup.SeleniumExtension;
-import org.apache.commons.io.FileUtils;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInfo;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.openqa.selenium.*;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
-
-import java.io.File;
-import java.util.concurrent.TimeUnit;
-
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
+import java.util.concurrent.TimeUnit;
 
 @ExtendWith(SeleniumExtension.class)
 public class SeleniumLoginTestHelper {
@@ -36,44 +27,70 @@ public class SeleniumLoginTestHelper {
         System.setProperty("sel.jup.output.folder", "./src/test/onFailureScreenshots");
     }
 
-    public WebDriver loginTest() throws Exception {
+    public void loginTest() throws Exception {
 
+        try {
         //Go to the login page
         driver.get("http://localhost:8080/#!/login");
         driver.manage().window().maximize();
 
         //Locate the login header
         WebElement loginHeader = driver.findElement(By.xpath("//*[@id=\"bg\"]/div/div/div/ui-view/login-form/div/div/h2"));
-        TimeUnit.SECONDS.sleep(2);
+        TimeUnit.SECONDS.sleep(1);
 
         //Enter email information
         WebElement emailBox = driver.findElement(By.id("email"));
         emailBox.sendKeys(username);
-        TimeUnit.SECONDS.sleep(2);
+        TimeUnit.SECONDS.sleep(1);
 
         //Enter password information
         WebElement passwordBox = driver.findElement(By.id("pwd"));
         passwordBox.sendKeys(password);
-        TimeUnit.SECONDS.sleep(2);
+        TimeUnit.SECONDS.sleep(1);
 
         //Press the login button
         WebElement loginButton = driver.findElement(By.id("button"));
         loginButton.click();
         TimeUnit.SECONDS.sleep(2);
+        String currentUrl = driver.getCurrentUrl();
+        assertThat(currentUrl,currentUrl != "http://localhost:8080/#!/login");
 
-        Thread.sleep(2000);
-        try {
-            Thread.sleep(2000);
+
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        TimeUnit.SECONDS.sleep(2);
+        TimeUnit.SECONDS.sleep(1);
+    }
+
+    public String getService() {
+        return service;
+    }
+
+    public void setService(String service) {
+        this.service = service;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public WebDriver getDriver() {
         return driver;
     }
-    public WebDriver getWebDriver(){
-        return driver;
-    }
-    public void setWebDriver(WebDriver driver){
+
+    public void setDriver(WebDriver driver) {
         this.driver = driver;
     }
 }
