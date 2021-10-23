@@ -77,3 +77,5 @@ public class VetsCreateSeleniumTest {
         driver.findElement(By.xpath("//*[@id=\"vetForm\"]/div/div[4]/input")).sendKeys("6543");
         driver.findElement(By.xpath("//*[@id=\"vetForm\"]/div/div[7]/textarea")).sendKeys("New User Resume");
         driver.findElement(By.xpath("//*[@id=\"vetForm\"]/div/div[8]/div/div[2]/input")).sendKeys(Keys.SPACE);
+        driver.findElement(By.xpath("//*[@id=\"vetForm\"]/div/div[9]/div/div/input")).sendKeys("Monday, Tuesday");
+}
