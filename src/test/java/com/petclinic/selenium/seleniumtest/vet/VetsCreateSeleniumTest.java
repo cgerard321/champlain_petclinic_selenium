@@ -17,6 +17,11 @@ import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
+/*
+This test was prepared by Shariful Islam
+It's testing UI Creation of a VET
+IMPORTANT NOTICE: This test only works once as soon as the system is up as it tests assuming the database is starting fresh.
+ */
 @ExtendWith(SeleniumExtension.class)
 public class VetsCreateSeleniumTest {
     ChromeDriver driver;
