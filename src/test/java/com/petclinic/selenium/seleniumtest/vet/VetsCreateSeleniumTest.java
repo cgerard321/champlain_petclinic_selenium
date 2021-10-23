@@ -58,3 +58,7 @@ public class VetsCreateSeleniumTest {
             e.printStackTrace();
         }
     }
+
+    @Test
+    @DisplayName("Testing the creation of a vet and Verifying")
+    void test_create_vet() throws Exception {
