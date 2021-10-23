@@ -67,3 +67,5 @@ public class VetsCreateSeleniumTest {
         driver.manage().window().maximize();
 
         Login();
+
+        driver.findElement(By.linkText("Veterinarians")).click();
