@@ -21,3 +21,5 @@ import static org.hamcrest.Matchers.is;
 public class VetsCreateSeleniumTest {
     ChromeDriver driver;
     private final String SCREENSHOTS = "./src/test/onDemandScreenshots";
+
+    public VetsCreateSeleniumTest(ChromeDriver driver) {
