@@ -7,7 +7,6 @@ import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import static org.hamcrest.MatcherAssert.assertThat;
 import java.util.concurrent.TimeUnit;
 /**
