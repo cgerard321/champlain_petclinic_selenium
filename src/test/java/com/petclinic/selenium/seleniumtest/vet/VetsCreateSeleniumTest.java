@@ -85,4 +85,8 @@ public class VetsCreateSeleniumTest {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        WebElement previewName = driver.findElement(By.xpath("//*[@id=\"bg\"]/div/div/div/ui-view/vet-list/table/tbody/tr[7]/td[2]/a/span"));
+        assertThat(previewName.getText(), is("New User"));
+
+    }
 }
