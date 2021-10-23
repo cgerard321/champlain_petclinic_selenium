@@ -124,7 +124,7 @@ public class VetsSeleniumTest{
     @DisplayName("test_detail_vet")
     void test_detail_vet() throws Exception {
         driver.manage().window().maximize();
-
+        driver.findElement(By.linkText("Veterinarians")).click();
 
         try {
             Thread.sleep(2000);
