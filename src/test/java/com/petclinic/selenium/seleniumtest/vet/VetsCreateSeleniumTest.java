@@ -126,5 +126,10 @@ public class VetsCreateSeleniumTest {
         WebElement editButton = driver.findElement(By.xpath("//*[@id=\"bg\"]/div/div/div/ui-view/vet-details/div/div[2]/div/div[2]/div[7]/div/a"));
         assertThat(editButton.getText(), is("Edit Vet"));
 
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }
