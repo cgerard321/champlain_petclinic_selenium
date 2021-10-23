@@ -105,5 +105,8 @@ public class VetsCreateSeleniumTest {
             e.printStackTrace();
         }
 
+        WebElement name = driver.findElement(By.xpath("//*[@id=\"bg\"]/div/div/div/ui-view/vet-details/div/div[2]/div/div[2]/div[1]"));
+        assertThat(name.getText(), is("New User"));
+
     }
 }
