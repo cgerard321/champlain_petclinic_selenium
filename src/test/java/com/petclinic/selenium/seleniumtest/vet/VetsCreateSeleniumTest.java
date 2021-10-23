@@ -30,3 +30,6 @@ public class VetsCreateSeleniumTest {
         System.setProperty("sel.jup.screenshot.at.the.end.of.tests", "whenfailure");
         System.setProperty("sel.jup.screenshot.format", "png");
         System.setProperty("sel.jup.output.folder", "./src/test/onFailureScreenshots");
+    }
+
+    public static void takeSnapShot(WebDriver webDriver, String fileWithPath) throws Exception {
