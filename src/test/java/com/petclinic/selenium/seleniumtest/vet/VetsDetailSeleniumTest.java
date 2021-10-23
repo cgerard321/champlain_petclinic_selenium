@@ -60,6 +60,12 @@ public class VetsDetailSeleniumTest {
         }
     }
 
+    /*
+    The following test will use a ChromeDriver object to make sure that
+    1 All html elements are generated correctly
+    2 All values displayed are corresponding to the values in the database
+    3 The buttons are responsive and the action on the button is completed
+    */
     @Test
     @DisplayName("test_detail_vet")
     void test_detail_vet() throws Exception {
@@ -83,34 +89,46 @@ public class VetsDetailSeleniumTest {
             e.printStackTrace();
         }
 
+        // Test name and lastname
         WebElement name = driver.findElement(By.xpath("//*[@id=\"bg\"]/div/div/div/ui-view/vet-details/div/div[2]/div/div[2]/div[1]"));
         assertThat(name.getText(), is("James Carter"));
 
+        //Test email
         WebElement email = driver.findElement(By.xpath("//*[@id=\"bg\"]/div/div/div/ui-view/vet-details/div/div[2]/div/div[2]/div[2]"));
         assertThat(email.getText(), is("carter.james@email.com"));
 
+        //Test phone
         WebElement phone = driver.findElement(By.xpath("//*[@id=\"bg\"]/div/div/div/ui-view/vet-details/div/div[2]/div/div[2]/div[3]"));
         assertThat(phone.getText(), is("(514)-634-8276 #2384"));
 
-        WebElement resume = driver.findElement(By.xpath("//*[@id=\"bg\"]/div/div/div/ui-view/vet-details/div/div[2]/div/div[2]/div[4]/div"));
+        //Specialization test missing
+
+        //Test resume
+        WebElement resume = driver.findElement(By.xpath("//*[@id=\"bg\"]/div/div/div/ui-view/vet-details/div/div[2]/div/div[2]/div[5]/div"));
         assertThat(resume.getText(), is("Practicing since 3 years"));
 
-        WebElement workday = driver.findElement(By.xpath("//*[@id=\"bg\"]/div/div/div/ui-view/vet-details/div/div[2]/div/div[2]/div[5]/div/div"));
+        //Test workday
+        WebElement workday = driver.findElement(By.xpath("//*[@id=\"bg\"]/div/div/div/ui-view/vet-details/div/div[2]/div/div[2]/div[6]/div/div"));
         assertThat(workday.getText(), is("Monday, Tuesday, Friday"));
 
-        WebElement button = driver.findElement(By.xpath("//*[@id=\"bg\"]/div/div/div/ui-view/vet-details/div/div[2]/div/div[2]/div[6]/div/button"));
+        //Test Show Availabilities Button
+        WebElement button = driver.findElement(By.xpath("//*[@id=\"toggle\"]"));
         assertThat(button.getText(), is("Show availabilities"));
 
-        driver.findElement(By.xpath("//*[@id=\"bg\"]/div/div/div/ui-view/vet-details/div/div[2]/div/div[2]/div[6]/div/button")).click();
+        //Clicking on the show availabilities button
+        button.click();
 
-        WebElement button2 = driver.findElement(By.xpath("//*[@id=\"bg\"]/div/div/div/ui-view/vet-details/div/div[2]/div/div[2]/div[6]/div/button"));
-        assertThat(button2.getText(), is("Hide availabilities"));
+        //Verifying that the text on button is changed to "Hide availabilities"
+        assertThat(button.getText(), is("Hide availabilities"));
 
-        driver.findElement(By.xpath("//*[@id=\"bg\"]/div/div/div/ui-view/vet-details/div/div[2]/div/div[2]/div[6]/div/button")).click();
+        //Clicking on the hide availabilities button
+        button.click();
 
+        //Verifying that the text on button is changed to "Hide availabilities"
         assertThat(button.getText(), is("Show availabilities"));
 
-        WebElement editButton = driver.findElement(By.xpath("//*[@id=\"bg\"]/div/div/div/ui-view/vet-details/div/div[2]/div/div[2]/div[7]/div/a"));
+        //Verifying the edit button text
+        WebElement editButton = driver.findElement(By.xpath("//*[@id=\"bg\"]/div/div/div/ui-view/vet-details/div/div[2]/div/div[2]/div[8]/div/a"));
         assertThat(editButton.getText(), is("Edit Vet"));
 
         try {
