@@ -94,5 +94,8 @@ public class VetsCreateSeleniumTest {
         WebElement previewPhone = driver.findElement(By.xpath("//*[@id=\"bg\"]/div/div/div/ui-view/vet-list/table/tbody/tr[7]/td[4]/span"));
         assertThat(previewPhone.getText(), is("new@user.com"));
 
+        WebElement previewSpecialty = driver.findElement(By.xpath("//*[@id=\"bg\"]/div/div/div/ui-view/vet-list/table/tbody/tr[7]/td[5]/span"));
+        assertThat(previewSpecialty.getText(), is("surgery"));
+
     }
 }
