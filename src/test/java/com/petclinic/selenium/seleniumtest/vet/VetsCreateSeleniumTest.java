@@ -120,6 +120,8 @@ public class VetsCreateSeleniumTest {
         WebElement workday = driver.findElement(By.xpath("//*[@id=\"bg\"]/div/div/div/ui-view/vet-details/div/div[2]/div/div[2]/div[5]/div/div"));
         assertThat(workday.getText(), is("Monday, Tuesday"));
 
+        WebElement button = driver.findElement(By.xpath("//*[@id=\"bg\"]/div/div/div/ui-view/vet-details/div/div[2]/div/div[2]/div[6]/div/button"));
+        assertThat(button.getText(), is("Show availabilities"));
 
 
     }
