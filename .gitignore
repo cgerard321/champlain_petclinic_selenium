@@ -34,6 +34,7 @@ hs_err_pid*
 src/test/onDemandScreenshots
 src/test/onFailureScreenshots
 screenshots/
+src/test/screenshots/
 
 ### IntelliJ IDEA ###
 .idea
