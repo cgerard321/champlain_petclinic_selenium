@@ -23,3 +23,4 @@ public class VetsCreateSeleniumTest {
     private final String SCREENSHOTS = "./src/test/onDemandScreenshots";
 
     public VetsCreateSeleniumTest(ChromeDriver driver) {
+        this.driver = driver;
