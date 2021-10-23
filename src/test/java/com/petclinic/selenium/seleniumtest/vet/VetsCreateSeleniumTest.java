@@ -65,3 +65,5 @@ public class VetsCreateSeleniumTest {
 
         driver.get("http://localhost:8080");
         driver.manage().window().maximize();
+
+        Login();
