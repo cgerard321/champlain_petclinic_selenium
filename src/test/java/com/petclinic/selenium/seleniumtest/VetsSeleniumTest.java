@@ -123,6 +123,14 @@ public class VetsSeleniumTest{
     @Test
     @DisplayName("test_detail_vet")
     void test_detail_vet() throws Exception {
-        
+        driver.manage().window().maximize();
+
+
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        driver.quit();
     }
 }
