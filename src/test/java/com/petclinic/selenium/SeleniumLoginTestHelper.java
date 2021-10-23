@@ -7,7 +7,15 @@ import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import static org.hamcrest.MatcherAssert.assertThat;
 import java.util.concurrent.TimeUnit;
-
+/**
+ * User: @SmoothWin
+ * Date: 2021-10-22
+ * Ticket: test(VETS-CPC-499): Login Test Helper for Selenium
+ * This is the actual Login helper class that will help to facilitate the login part that
+ * each new selenium tests will have to require
+ * (See the SeleniumLoginTestHelperTest class for an example on how to implement)
+ * inside each of our End-to-End tests (Selenium tests)
+ */
 @ExtendWith(SeleniumExtension.class)
 public class SeleniumLoginTestHelper {
     String username;

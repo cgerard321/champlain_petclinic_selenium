@@ -10,10 +10,17 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
+/**
+ * User: @SmoothWin
+ * Date: 2021-10-22
+ * Ticket: test(VETS-CPC-499): Login Test Helper for Selenium
+ * This is an example test demonstrating how we should implement the SeleniumLoginTestHelper class
+ * inside each of our End-to-End tests (Selenium tests)
+ */
 @ExtendWith(SeleniumExtension.class)
 public class SeleniumLoginTestHelperTest {
-    ChromeDriver driver;
-    SeleniumLoginTestHelper helper;
+    ChromeDriver driver; //This can be any driver you want :)
+    SeleniumLoginTestHelper helper; //You will need this SeleniumLoginTestHelper field
     public SeleniumLoginTestHelperTest(ChromeDriver driver) {
         this.driver = driver;
 
@@ -31,6 +38,7 @@ public class SeleniumLoginTestHelperTest {
     @Test
     @DisplayName("Selenium Login Test Helper Test")
     public void seleniumLoginTestHelperTest() throws Exception{
-        helper.getDriver().quit();
+        helper.getDriver().quit(); //This has to be done in order to close the window derived from
+                                    // the SeleniumLoginTestHelper class instantiation
     }
 }
