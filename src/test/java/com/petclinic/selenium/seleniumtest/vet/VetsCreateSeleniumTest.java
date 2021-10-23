@@ -131,5 +131,6 @@ public class VetsCreateSeleniumTest {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        driver.quit();
     }
 }
