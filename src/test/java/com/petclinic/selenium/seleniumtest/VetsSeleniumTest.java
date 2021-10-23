@@ -133,6 +133,9 @@ public class VetsSeleniumTest{
         WebElement email = driver.findElement(By.xpath("//*[@id=\"bg\"]/div/div/div/ui-view/vet-details/div/div[2]/div/div[2]/div[2]"));
         assertThat(email.getText(), is("carter.james@email.com"));
 
+        WebElement phone = driver.findElement(By.xpath("//*[@id=\"bg\"]/div/div/div/ui-view/vet-details/div/div[2]/div/div[2]/div[3]"));
+        assertThat(phone.getText(), is("(514)-634-8276 #2384"));
+
         try {
             Thread.sleep(2000);
         } catch (InterruptedException e) {
