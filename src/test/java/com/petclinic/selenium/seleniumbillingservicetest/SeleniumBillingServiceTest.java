@@ -84,11 +84,23 @@ public class SeleniumBillingServiceTest {
         passLabel.sendKeys("admin");
         act.doubleClick(loginButton).perform();
 
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         WebElement billsTab = driver.findElement(By.id("navbarDropdown1"));
         billsTab.click();
 
-        WebElement billHistoryLink = driver.findElement(By.linkText("Bills"));
+        WebElement billHistoryLink = driver.findElement(By.xpath("//a[@href='#!/bills']"));
         billHistoryLink.click();
+
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         WebElement table = driver.findElement(By.xpath("//table[@class='table table-striped']"));
         List<WebElement> rows = table.findElements(By.tagName("tr"));
@@ -102,7 +114,7 @@ public class SeleniumBillingServiceTest {
             e.printStackTrace();
         }
 
-        assertThat(rows.size(), is(6));
+        assertThat(rows.size(), is(7));
 
         driver.quit();
     }
