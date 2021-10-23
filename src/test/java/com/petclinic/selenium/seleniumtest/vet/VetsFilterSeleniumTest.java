@@ -19,11 +19,11 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
 @ExtendWith(SeleniumExtension.class)
-public class VetsSeleniumTest{
+public class VetsFilterSeleniumTest {
     ChromeDriver driver;
     private final String SCREENSHOTS = "./src/test/onDemandScreenshots";
 
-    public VetsSeleniumTest(ChromeDriver driver) {
+    public VetsFilterSeleniumTest(ChromeDriver driver) {
         this.driver = driver;
 
         DesiredCapabilities dc = new DesiredCapabilities();
