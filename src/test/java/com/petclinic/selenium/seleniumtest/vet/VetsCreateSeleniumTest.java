@@ -62,3 +62,5 @@ public class VetsCreateSeleniumTest {
     @Test
     @DisplayName("Testing the creation of a vet and Verifying")
     void test_create_vet() throws Exception {
+
+        driver.get("http://localhost:8080");
