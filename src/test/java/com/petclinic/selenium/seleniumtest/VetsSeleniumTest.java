@@ -125,6 +125,7 @@ public class VetsSeleniumTest{
     void test_detail_vet() throws Exception {
         driver.manage().window().maximize();
         driver.findElement(By.linkText("Veterinarians")).click();
+        driver.findElement(By.xpath("//*[@id=\"bg\"]/div/div/div/ui-view/vet-list/table/tbody/tr[1]/td[2]")).click();
 
         try {
             Thread.sleep(2000);
