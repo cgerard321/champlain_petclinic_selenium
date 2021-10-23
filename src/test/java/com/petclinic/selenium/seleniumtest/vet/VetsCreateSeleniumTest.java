@@ -117,6 +117,8 @@ public class VetsCreateSeleniumTest {
         WebElement resume = driver.findElement(By.xpath("//*[@id=\"bg\"]/div/div/div/ui-view/vet-details/div/div[2]/div/div[2]/div[4]/div"));
         assertThat(resume.getText(), is("New User Resume"));
 
+        WebElement workday = driver.findElement(By.xpath("//*[@id=\"bg\"]/div/div/div/ui-view/vet-details/div/div[2]/div/div[2]/div[5]/div/div"));
+        assertThat(workday.getText(), is("Monday, Tuesday"));
 
 
 
