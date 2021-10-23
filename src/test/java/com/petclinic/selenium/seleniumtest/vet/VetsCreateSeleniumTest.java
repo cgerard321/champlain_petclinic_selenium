@@ -20,3 +20,4 @@ import static org.hamcrest.Matchers.is;
 @ExtendWith(SeleniumExtension.class)
 public class VetsCreateSeleniumTest {
     ChromeDriver driver;
+    private final String SCREENSHOTS = "./src/test/onDemandScreenshots";
