@@ -1,5 +1,6 @@
 package com.petclinic.selenium.seleniumtest.vets;
 
+import com.petclinic.selenium.SeleniumLoginTestHelper;
 import io.github.bonigarcia.seljup.SeleniumExtension;
 import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.*;
@@ -9,6 +10,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.File;
 import java.util.concurrent.TimeUnit;
@@ -25,8 +28,8 @@ import static org.hamcrest.Matchers.is;
 
 @ExtendWith(SeleniumExtension.class)
 public class VetSeleniumVetModalUITest {
-
     ChromeDriver driver;
+    SeleniumLoginTestHelper helper; //You will need this SeleniumLoginTestHelper field
     private final String SCREENSHOTS = "./src/test/screenshots/vet_modal";
 
     public VetSeleniumVetModalUITest(ChromeDriver driver){
@@ -53,47 +56,8 @@ public class VetSeleniumVetModalUITest {
 
     @BeforeEach
     public void setup() throws Exception{
-        boolean error = false;
-        try {
-        driver.get("http://localhost:8080/#!/vets");
-        driver.manage().window().maximize();
-
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
-        //Locate the login header
-        WebElement loginHeader = driver.findElement(By.xpath("//*[@id=\"bg\"]/div/div/div/ui-view/login-form/div/div/h2"));
-        TimeUnit.SECONDS.sleep(2);
-
-        //Enter email information
-        WebElement emailBox = driver.findElement(By.id("email"));
-        emailBox.sendKeys("admin");
-        TimeUnit.SECONDS.sleep(2);
-
-        //Enter password information
-        WebElement passwordBox = driver.findElement(By.id("pwd"));
-        passwordBox.sendKeys("admin");
-        TimeUnit.SECONDS.sleep(2);
-
-        //Press the login button
-        WebElement loginButton = driver.findElement(By.id("button"));
-        loginButton.click();
-        TimeUnit.SECONDS.sleep(2);
-        driver.get("http://localhost:8080/#!/vets");
-
-        }catch (AssertionError e){
-            e.printStackTrace();
-            error = true;
-            throw new AssertionError(e);
-        }
-        catch (InterruptedException e){
-            e.printStackTrace();
-            error = true;
-            throw new AssertionError(e);
-        }
-        finally {
-            if(error == true) {
-                takeSnapShot(driver, SCREENSHOTS+"/fail/vetLoginFailedForModalTest_"+System.currentTimeMillis()+".png");
-            }
-        }
+        this.helper = new SeleniumLoginTestHelper("LoginTestHelper", driver);
+        helper.loginTest();
     }
 
     @Test
@@ -104,22 +68,22 @@ public class VetSeleniumVetModalUITest {
         //assert
         //open web page
         try {
-
-            Actions actions = new Actions(driver);
-            WebElement info = driver.findElement(By.className("info"));
+            WebDriverWait wait = new WebDriverWait(driver,10);
+            wait.until(ExpectedConditions.urlToBe("http://localhost:8080/#!/welcome"));
+            helper.getDriver().get("http://localhost:8080/#!/vets");
+            wait.until(ExpectedConditions.urlToBe("http://localhost:8080/#!/vets"));
+            Actions actions = new Actions(helper.getDriver());
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("info")));
+            WebElement info = helper.getDriver().findElement(By.className("info"));
             actions.moveToElement(info);
             actions.build().perform();
-            Thread.sleep(1000);
-            WebElement modal = driver.findElement(By.className("modalOn"));
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("modalOn")));
+            WebElement modal = helper.getDriver().findElement(By.className("modalOn"));
             assertThat(modal.isDisplayed(), is(true));
-
         }catch (AssertionError e){
             e.printStackTrace();
             error = true;
             throw new AssertionError(e);
-        }
-        catch (InterruptedException e){
-            e.printStackTrace();
         }
         finally {
             if(error == false) {
@@ -128,7 +92,7 @@ public class VetSeleniumVetModalUITest {
             else{
                 takeSnapShot(driver, SCREENSHOTS+"/fail/"+method+"_"+System.currentTimeMillis()+".png");
             }
-            driver.quit();
+            helper.getDriver().quit();
         }
     }
 }
