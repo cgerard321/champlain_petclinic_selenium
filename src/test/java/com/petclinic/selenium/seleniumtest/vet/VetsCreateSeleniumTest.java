@@ -123,6 +123,8 @@ public class VetsCreateSeleniumTest {
         WebElement button = driver.findElement(By.xpath("//*[@id=\"bg\"]/div/div/div/ui-view/vet-details/div/div[2]/div/div[2]/div[6]/div/button"));
         assertThat(button.getText(), is("Show availabilities"));
 
+        WebElement editButton = driver.findElement(By.xpath("//*[@id=\"bg\"]/div/div/div/ui-view/vet-details/div/div[2]/div/div[2]/div[7]/div/a"));
+        assertThat(editButton.getText(), is("Edit Vet"));
 
     }
 }
