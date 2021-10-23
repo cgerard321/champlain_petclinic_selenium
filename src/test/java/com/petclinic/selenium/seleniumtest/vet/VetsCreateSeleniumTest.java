@@ -97,5 +97,7 @@ public class VetsCreateSeleniumTest {
         WebElement previewSpecialty = driver.findElement(By.xpath("//*[@id=\"bg\"]/div/div/div/ui-view/vet-list/table/tbody/tr[7]/td[5]/span"));
         assertThat(previewSpecialty.getText(), is("surgery"));
 
+
+        driver.findElement(By.xpath("//*[@id=\"bg\"]/div/div/div/ui-view/vet-list/table/tbody/tr[7]/td[2]/a")).click();
     }
 }
