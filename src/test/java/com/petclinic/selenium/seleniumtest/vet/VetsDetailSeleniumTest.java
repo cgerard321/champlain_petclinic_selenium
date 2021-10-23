@@ -101,7 +101,9 @@ public class VetsDetailSeleniumTest {
         WebElement phone = driver.findElement(By.xpath("//*[@id=\"bg\"]/div/div/div/ui-view/vet-details/div/div[2]/div/div[2]/div[3]"));
         assertThat(phone.getText(), is("(514)-634-8276 #2384"));
 
-        //Specialization test missing
+        //Test speciality
+        WebElement speciality = driver.findElement(By.xpath("//*[@id=\"bg\"]/div/div/div/ui-view/vet-details/div/div[2]/div/div[2]/div[4]/div/span"));
+        assertThat(speciality.getText(), is("general"));
 
         //Test resume
         WebElement resume = driver.findElement(By.xpath("//*[@id=\"bg\"]/div/div/div/ui-view/vet-details/div/div[2]/div/div[2]/div[5]/div"));
@@ -116,13 +118,13 @@ public class VetsDetailSeleniumTest {
         assertThat(button.getText(), is("Show availabilities"));
 
         //Clicking on the show availabilities button
-        button.click();
+        button.sendKeys(Keys.SPACE);
 
         //Verifying that the text on button is changed to "Hide availabilities"
         assertThat(button.getText(), is("Hide availabilities"));
 
         //Clicking on the hide availabilities button
-        button.click();
+        button.sendKeys(Keys.SPACE);
 
         //Verifying that the text on button is changed to "Hide availabilities"
         assertThat(button.getText(), is("Show availabilities"));
