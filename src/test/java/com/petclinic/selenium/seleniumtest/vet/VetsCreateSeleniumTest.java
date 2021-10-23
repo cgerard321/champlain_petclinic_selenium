@@ -69,3 +69,4 @@ public class VetsCreateSeleniumTest {
         Login();
 
         driver.findElement(By.linkText("Veterinarians")).click();
+        driver.findElement(By.xpath("//*[@id=\"bg\"]/div/div/div/ui-view/vet-list/a/button")).click();
