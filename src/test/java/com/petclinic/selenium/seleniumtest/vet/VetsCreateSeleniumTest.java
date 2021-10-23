@@ -40,3 +40,6 @@ public class VetsCreateSeleniumTest {
         File SrcFile = scrShot.getScreenshotAs(OutputType.FILE);
         //Move image file to new destination
         File DestFile = new File(fileWithPath);
+        //Copy file at destination
+        FileUtils.copyFile(SrcFile, DestFile);
+    }
