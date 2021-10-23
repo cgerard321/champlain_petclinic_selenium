@@ -5,6 +5,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.openqa.selenium.*;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import java.util.concurrent.TimeUnit;
 /**
@@ -38,36 +41,29 @@ public class SeleniumLoginTestHelper {
     public void loginTest() throws Exception {
 
         try {
-        //Go to the login page
-        driver.get("http://localhost:8080/#!/login");
-        driver.manage().window().maximize();
+            WebDriverWait wait = new WebDriverWait(driver,10);
+            //Go to the login page
+            driver.get("http://localhost:8080/#!/login");
+            driver.manage().window().maximize();
 
-        //Locate the login header
-        WebElement loginHeader = driver.findElement(By.xpath("//*[@id=\"bg\"]/div/div/div/ui-view/login-form/div/div/h2"));
-        TimeUnit.SECONDS.sleep(1);
-
-        //Enter email information
-        WebElement emailBox = driver.findElement(By.id("email"));
-        emailBox.sendKeys(username);
-        TimeUnit.SECONDS.sleep(1);
-
-        //Enter password information
-        WebElement passwordBox = driver.findElement(By.id("pwd"));
-        passwordBox.sendKeys(password);
-        TimeUnit.SECONDS.sleep(1);
-
-        //Press the login button
-        WebElement loginButton = driver.findElement(By.id("button"));
-        loginButton.click();
-        TimeUnit.SECONDS.sleep(2);
-        String currentUrl = driver.getCurrentUrl();
-        assertThat(currentUrl,currentUrl != "http://localhost:8080/#!/login");
+            //Locate the email input box
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"email\"]")));
 
 
-        } catch (InterruptedException e) {
+            //Enter email information, password and click button
+            driver.findElement(By.xpath("//*[@id=\"email\"]")).sendKeys("admin");
+            driver.findElement(By.xpath("//*[@id=\"pwd\"]")).sendKeys("admin");
+            driver.findElement(By.xpath("//*[@id=\"button\"]")).click();
+
+
+            //Press check url
+            wait.until(ExpectedConditions.urlToBe("http://localhost:8080/#!/login"));
+            String currentUrl = driver.getCurrentUrl();
+            assertThat(currentUrl,currentUrl != "http://localhost:8080/#!/login");
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        TimeUnit.SECONDS.sleep(1);
     }
 
     public String getService() {
