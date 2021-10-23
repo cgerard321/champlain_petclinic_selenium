@@ -103,26 +103,30 @@ public class VISE_SeleniumTests {
 
         driver.findElement(By.xpath("//*[@id=\'description_textarea\']")).sendKeys("TestVisitDescription");
 
-        TimeUnit.SECONDS.sleep(2);
+
 
        driver.findElement(By.id("submit_button")).click();
+        TimeUnit.SECONDS.sleep(2);
+
+       driver.findElement(By.id("confirmationModalConfirmButton")).click();
 
 
-
+        String testname = "TestVisitDescription";
+        // getPageSource() to get page source
+        if ( driver.getPageSource().contains("TestVisitDescription")){
+            System.out.println("Text: " + testname + " was created successfully. ");
+        } else {
+            System.out.println("Text: " + testname + " was NOT created successfully. ");
+        }
 
         // getting back to the betty davis customer
         // CHANGE IN THE FUTURE
+/*
 
-        Thread.sleep(2000);
-        a1 = driver.findElement(By.linkText("Betty Davis"));
-        a1.click();
-        Thread.sleep(2000);
-
-
-      WebElement createdTestVisit = driver.findElement(By.xpath("//*[@id=\"bg\"]/div/div/div/ui-view/owner-details/table[2]/tbody/tr/td[2]/table/tbody/tr[3]/td[2]"));
+      WebElement createdTestVisit = driver.findElement(By.xpath("//*[@id=\"bg\"]/div/div/div/ui-view/visits/table[1]/tbody/tr[2]/td[2]"));
 
      assertThat(createdTestVisit.getText(), is("TestVisitDescription") );
-
+        */
 
         try {
             Thread.sleep(2000);
