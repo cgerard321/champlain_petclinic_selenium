@@ -33,3 +33,6 @@ public class VetsCreateSeleniumTest {
     }
 
     public static void takeSnapShot(WebDriver webDriver, String fileWithPath) throws Exception {
+
+        //Convert web driver object to TakeScreenshot
+        TakesScreenshot scrShot = ((TakesScreenshot) webDriver);
