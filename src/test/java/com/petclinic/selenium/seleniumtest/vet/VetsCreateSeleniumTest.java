@@ -88,5 +88,8 @@ public class VetsCreateSeleniumTest {
         WebElement previewName = driver.findElement(By.xpath("//*[@id=\"bg\"]/div/div/div/ui-view/vet-list/table/tbody/tr[7]/td[2]/a/span"));
         assertThat(previewName.getText(), is("New User"));
 
+        WebElement previewEmail = driver.findElement(By.xpath("//*[@id=\"bg\"]/div/div/div/ui-view/vet-list/table/tbody/tr[7]/td[3]/span"));
+        assertThat(previewEmail.getText(), is("(514)-634-8276 #6543"));
+
     }
 }
