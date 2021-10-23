@@ -50,3 +50,4 @@ public class VetsCreateSeleniumTest {
 
         driver.findElement(By.xpath("//*[@id=\"email\"]")).sendKeys("admin");
         driver.findElement(By.xpath("//*[@id=\"pwd\"]")).sendKeys("admin");
+        driver.findElement(By.xpath("//*[@id=\"button\"]")).click();
