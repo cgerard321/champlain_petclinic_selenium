@@ -45,11 +45,28 @@ public class VetsSeleniumTest{
         FileUtils.copyFile(SrcFile, DestFile);
     }
 
+    void Login(){
+        driver.get("http://localhost:8080");
+        driver.manage().window().maximize();
+
+        driver.findElement(By.xpath("//*[@id=\"email\"]")).sendKeys("admin");
+        driver.findElement(By.xpath("//*[@id=\"pwd\"]")).sendKeys("admin");
+        driver.findElement(By.xpath("//*[@id=\"button\"]")).click();
+
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
     @Test
     @DisplayName("test_filter-vets-all")
     void test_filter_vets_all() throws Exception {
         driver.get("http://localhost:8080");
         driver.manage().window().maximize();
+
+        Login();
 
         driver.findElement(By.linkText("Veterinarians")).click();
 
@@ -71,6 +88,8 @@ public class VetsSeleniumTest{
     void test_filter_vets_available() throws Exception {
         driver.get("http://localhost:8080");
         driver.manage().window().maximize();
+
+        Login();
 
         driver.findElement(By.linkText("Veterinarians")).click();
 
@@ -98,6 +117,8 @@ public class VetsSeleniumTest{
     void unavailable() throws Exception {
         driver.get("http://localhost:8080");
         driver.manage().window().maximize();
+
+        Login();
 
         driver.findElement(By.linkText("Veterinarians")).click();
 
