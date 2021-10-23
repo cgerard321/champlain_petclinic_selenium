@@ -43,3 +43,5 @@ public class VetsCreateSeleniumTest {
         //Copy file at destination
         FileUtils.copyFile(SrcFile, DestFile);
     }
+
+    void Login() {
