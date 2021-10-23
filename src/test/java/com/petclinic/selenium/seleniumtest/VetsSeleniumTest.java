@@ -119,4 +119,10 @@ public class VetsSeleniumTest{
         }
         driver.quit();
     }
+
+    @Test
+    @DisplayName("test_detail_vet")
+    void test_detail_vet() throws Exception {
+        
+    }
 }
