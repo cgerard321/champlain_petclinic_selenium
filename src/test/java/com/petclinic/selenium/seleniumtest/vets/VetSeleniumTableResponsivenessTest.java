@@ -21,6 +21,18 @@ import java.io.File;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
+/**
+ * User: @SmoothWin
+ * Date: 2021-10-23
+ * Ticket: feat(VETS-CPC-399): Vet_Service_Mobile_Version
+ * Implemented selenium tests for checking if, depending on the current screen width,
+ * table data is present and modal data is present because the current UI
+ * has an implementation that dependent on different screen width data show up
+ * on the modal instead of the table.
+ *
+ * These tests help test this use case
+ */
+
 @ExtendWith(SeleniumExtension.class)
 public class VetSeleniumTableResponsivenessTest {
     ChromeDriver driver;
