@@ -27,3 +27,4 @@ public class VetsCreateSeleniumTest {
 
         DesiredCapabilities dc = new DesiredCapabilities();
         dc.setCapability(CapabilityType.UNEXPECTED_ALERT_BEHAVIOUR, UnexpectedAlertBehaviour.IGNORE);
+        System.setProperty("sel.jup.screenshot.at.the.end.of.tests", "whenfailure");
