@@ -47,3 +47,5 @@ public class VetsCreateSeleniumTest {
     void Login() {
         driver.get("http://localhost:8080");
         driver.manage().window().maximize();
+
+        driver.findElement(By.xpath("//*[@id=\"email\"]")).sendKeys("admin");
