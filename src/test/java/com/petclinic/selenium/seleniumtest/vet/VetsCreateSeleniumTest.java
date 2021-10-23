@@ -64,3 +64,4 @@ public class VetsCreateSeleniumTest {
     void test_create_vet() throws Exception {
 
         driver.get("http://localhost:8080");
+        driver.manage().window().maximize();
