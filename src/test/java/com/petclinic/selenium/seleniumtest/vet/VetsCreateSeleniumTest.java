@@ -38,3 +38,5 @@ public class VetsCreateSeleniumTest {
         TakesScreenshot scrShot = ((TakesScreenshot) webDriver);
         //call getScreenshotAs method to create the actual image file
         File SrcFile = scrShot.getScreenshotAs(OutputType.FILE);
+        //Move image file to new destination
+        File DestFile = new File(fileWithPath);
