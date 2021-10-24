@@ -141,19 +141,20 @@ public class VetsFilterSeleniumTest {
     }
 
     @Test
-    @DisplayName("test-delete-vet")
-    void test_delete_vet() throws Exception {
+    @DisplayName("test-delete-vet-pop-up-ok")
+    void test_delete_vet_pop_up_ok() throws Exception {
         driver.get("http://localhost:8080");
         driver.manage().window().maximize();
 
         driver.findElement(By.linkText("Veterinarians")).click();
         //to allow for load time of data
         Thread.sleep(2000);
-        WebElement deleteButton = driver.findElement(By.xpath("//*[@id=\"bg\"]/div/div/div/ui-view/vet-list/table/tbody/tr[1]/td[7]/a"));
+        WebElement deleteButton = driver.findElement(By.xpath("//*[@id=\"bg\"]/div/div/div/ui-view/vet-list/table/tbody/tr[1]/td[8]/a"));
         deleteButton.click();
+        Thread.sleep(5000);
 
-        WebElement popup = driver.findElement(By.xpath(""));
-        assertThat(popup.getText(), is("Are you sure you want to delete this vet?"));
+        Alert alert = driver.switchTo().alert();
+        assertThat(alert.getText(), is("Want to delete vet with vetId:238372. Are you sure?"));
 
         try {
             Thread.sleep(2000);
@@ -162,5 +163,63 @@ public class VetsFilterSeleniumTest {
         }
         driver.quit();
     }
+
+    @Test
+    @DisplayName("test-delete-first-vet-from-view")
+    void test_delete_vet_from_view() throws Exception {
+        driver.get("http://localhost:8080");
+        driver.manage().window().maximize();
+
+        driver.findElement(By.linkText("Veterinarians")).click();
+        //to allow for load time of data
+        Thread.sleep(2000);
+        WebElement deleteButton = driver.findElement(By.xpath("//*[@id=\"bg\"]/div/div/div/ui-view/vet-list/table/tbody/tr[1]/td[7]/a"));
+        deleteButton.click();
+        Thread.sleep(3000);
+
+        Alert alert = driver.switchTo().alert();
+        assertThat(alert.getText(), is("Want to delete vet with vetId:238372. Are you sure?"));
+        alert.accept();
+
+        WebElement td2 = driver.findElement(By.xpath("//*[@id=\"bg\"]/div/div/div/ui-view/vet-list/table/tbody/tr[1]/td[2]"));
+        assertThat(td2.getText(), is("Helen Leary"));
+
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        driver.quit();
+    }
+    @Test
+    @DisplayName("test-delete-vet-pop-up-cancel")
+    void test_delete_vet_pop_up_cancel() throws Exception {
+        driver.get("http://localhost:8080");
+        driver.manage().window().maximize();
+
+        driver.findElement(By.linkText("Veterinarians")).click();
+        //to allow for load time of data
+        Thread.sleep(2000);
+        WebElement deleteButton = driver.findElement(By.xpath("//*[@id=\"bg\"]/div/div/div/ui-view/vet-list/table/tbody/tr[1]/td[7]/a"));
+        deleteButton.click();
+        Thread.sleep(3000);
+
+        Alert alert = driver.switchTo().alert();
+        assertThat(alert.getText(), is("Want to delete vet with vetId:238372. Are you sure?"));
+        alert.accept();
+
+        WebElement td2 = driver.findElement(By.xpath("//*[@id=\"bg\"]/div/div/div/ui-view/vet-list/table/tbody/tr[2]/td[2]"));
+        assertThat(td2.getText(), is("Helen Leary"));
+
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        driver.quit();
+    }
+
+
+
 
 }
