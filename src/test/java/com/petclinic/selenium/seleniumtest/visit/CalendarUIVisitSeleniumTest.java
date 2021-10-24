@@ -126,7 +126,7 @@ public class CalendarUIVisitSeleniumTest {
         assertThat(currentVetNameCalendar.getText(), is("Helen Leary"));
 
 
-            //calendar will display the following month when the > icon is clicked
+      
 
 
 
@@ -193,15 +193,13 @@ public class CalendarUIVisitSeleniumTest {
 
         // Necessary scroll
         JavascriptExecutor js = (JavascriptExecutor) driver;
-      //  js.executeScript("window.scrollBy(0,250)", "");
+
 
         driver.findElement(By.xpath("//*[@id=\"selectedVet\"]/option[3]")).click();
         TimeUnit.SECONDS.sleep(1);
 
         Calendar calendar = Calendar.getInstance();
-        //*[@id="bg"]/div/div/div/ui-view/visits/div[1]/div/div[1]/div/h1 OCTOBER
-        //*[@id="bg"]/div/div/div/ui-view/visits/div[1]/div/div[1]/div/p 2021
-        //*[@id="bg"]/div/div/div/ui-view/visits/div[1]/div/div[4]/div[1]/div/h1 Helen Leary
+
         WebElement currentMonthCalendar = driver.findElement(By.xpath("//*[@id=\'bg\']/div/div/div/ui-view/visits/div[1]/div/div[1]/div/h1"));
 
 
