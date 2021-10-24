@@ -111,9 +111,8 @@ public class CalendarUIVisitSeleniumTest {
         TimeUnit.SECONDS.sleep(1);
 
         Calendar calendar = Calendar.getInstance();
-        //*[@id="bg"]/div/div/div/ui-view/visits/div[1]/div/div[1]/div/h1 OCTOBER
-        //*[@id="bg"]/div/div/div/ui-view/visits/div[1]/div/div[1]/div/p 2021
-        //*[@id="bg"]/div/div/div/ui-view/visits/div[1]/div/div[4]/div[1]/div/h1 Helen Leary
+        String year = String.valueOf(calendar.getInstance().get(Calendar.YEAR));
+  
         WebElement currentMonthCalendar = driver.findElement(By.xpath("//*[@id=\'bg\']/div/div/div/ui-view/visits/div[1]/div/div[1]/div/h1"));
         WebElement currentYearCalendar = driver.findElement(By.xpath("//*[@id=\'bg\']/div/div/div/ui-view/visits/div[1]/div/div[1]/div/p"));
         WebElement currentVetNameCalendar = driver.findElement(By.xpath("//*[@id=\'bg\']/div/div/div/ui-view/visits/div[1]/div/div[4]/div[1]/div/h1"));
@@ -121,12 +120,12 @@ public class CalendarUIVisitSeleniumTest {
             //calendar displays the current month
         assertThat(currentMonthCalendar.getText().toString().toLowerCase(Locale.ROOT), is(calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, Locale.ENGLISH ).toString().toLowerCase(Locale.ROOT)));
             //calendar displays the current year
-        assertThat(currentYearCalendar.getText(), is(calendar.getInstance().get(Calendar.YEAR)));
+        assertThat(currentYearCalendar.getText(), is(year));
             //calendar displays the same name as the one selected from the dropdown
         assertThat(currentVetNameCalendar.getText(), is("Helen Leary"));
 
 
-      
+
 
 
 
