@@ -76,13 +76,13 @@ public class VetsCreateSeleniumTest {
         driver.findElement(By.linkText("Veterinarians")).click();
         driver.findElement(By.xpath("//*[@id=\"bg\"]/div/div/div/ui-view/vet-list/a/button")).click();
 
-        driver.findElement(By.xpath("//*[@id=\"vetForm\"]/div/div[1]/input")).sendKeys("New");
-        driver.findElement(By.xpath("//*[@id=\"vetForm\"]/div/div[2]/input")).sendKeys("User");
-        driver.findElement(By.xpath("//*[@id=\"vetForm\"]/div/div[3]/input")).sendKeys("new@user.com");
-        driver.findElement(By.xpath("//*[@id=\"vetForm\"]/div/div[4]/input")).sendKeys("6543");
-        driver.findElement(By.xpath("//*[@id=\"vetForm\"]/div/div[7]/textarea")).sendKeys("New User Resume");
-        driver.findElement(By.xpath("//*[@id=\"vetForm\"]/div/div[8]/div/div[2]/input")).sendKeys(Keys.SPACE);
-        driver.findElement(By.xpath("//*[@id=\"vetForm\"]/div/div[9]/div/div/input")).sendKeys("Monday, Tuesday");
+        driver.findElement(By.xpath("//*[@id=\"firstName\"]")).sendKeys("New");
+        driver.findElement(By.xpath("//*[@id=\"lastName\"]")).sendKeys("User");
+        driver.findElement(By.xpath("//*[@id=\"email\"]")).sendKeys("new@user.com");
+        driver.findElement(By.xpath("//*[@id=\"phoneNumber\"]")).sendKeys("6543");
+        driver.findElement(By.xpath("//*[@id=\"vetResume\"]")).sendKeys("New User Resume");
+        driver.findElement(By.xpath("//*[@id=\"surgery\"]")).sendKeys(Keys.SPACE);
+        driver.findElement(By.xpath("//*[@id=\"workDays\"]")).sendKeys("Monday, Tuesday");
         driver.findElement(By.xpath("//*[@id=\"vetForm\"]/div/div[10]/div[1]/label/input")).sendKeys(Keys.SPACE);
         driver.findElement(By.xpath("//*[@id=\"vetForm\"]/div/button")).sendKeys(Keys.SPACE);
         try {
@@ -122,16 +122,16 @@ public class VetsCreateSeleniumTest {
         WebElement speciality = driver.findElement(By.xpath("//*[@id=\"bg\"]/div/div/div/ui-view/vet-details/div/div[2]/div/div[2]/div[4]/div/span"));
         assertThat(speciality.getText(), is("surgery"));
 
-        WebElement resume = driver.findElement(By.xpath("//*[@id=\"bg\"]/div/div/div/ui-view/vet-details/div/div[2]/div/div[2]/div[4]/div"));
+        WebElement resume = driver.findElement(By.xpath("//*[@id=\"bg\"]/div/div/div/ui-view/vet-details/div/div[2]/div/div[2]/div[5]/div"));
         assertThat(resume.getText(), is("New User Resume"));
 
-        WebElement workday = driver.findElement(By.xpath("//*[@id=\"bg\"]/div/div/div/ui-view/vet-details/div/div[2]/div/div[2]/div[5]/div/div"));
+        WebElement workday = driver.findElement(By.xpath("//*[@id=\"bg\"]/div/div/div/ui-view/vet-details/div/div[2]/div/div[2]/div[6]/div/div"));
         assertThat(workday.getText(), is("Monday, Tuesday"));
 
-        WebElement button = driver.findElement(By.xpath("//*[@id=\"bg\"]/div/div/div/ui-view/vet-details/div/div[2]/div/div[2]/div[6]/div/button"));
+        WebElement button = driver.findElement(By.xpath("//*[@id=\"toggle\"]"));
         assertThat(button.getText(), is("Show availabilities"));
 
-        WebElement editButton = driver.findElement(By.xpath("//*[@id=\"bg\"]/div/div/div/ui-view/vet-details/div/div[2]/div/div[2]/div[7]/div/a"));
+        WebElement editButton = driver.findElement(By.xpath("//*[@id=\"bg\"]/div/div/div/ui-view/vet-details/div/div[2]/div/div[2]/div[8]/div/a/button"));
         assertThat(editButton.getText(), is("Edit Vet"));
 
         try {
