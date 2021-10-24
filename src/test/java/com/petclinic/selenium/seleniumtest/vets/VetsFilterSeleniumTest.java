@@ -205,11 +205,10 @@ public class VetsFilterSeleniumTest {
         Thread.sleep(3000);
 
         Alert alert = driver.switchTo().alert();
-        assertThat(alert.getText(), is("Want to delete vet with vetId:238372. Are you sure?"));
-        alert.accept();
+        alert.dismiss();
 
-        WebElement td2 = driver.findElement(By.xpath("//*[@id=\"bg\"]/div/div/div/ui-view/vet-list/table/tbody/tr[2]/td[2]"));
-        assertThat(td2.getText(), is("Helen Leary"));
+        WebElement td1 = driver.findElement(By.xpath("//*[@id=\"bg\"]/div/div/div/ui-view/vet-list/table/tbody/tr[1]/td[2]"));
+        assertThat(td1.getText(), is("James Carter"));
 
         try {
             Thread.sleep(2000);
