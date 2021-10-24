@@ -19,12 +19,13 @@ import java.io.File;
 import java.util.concurrent.TimeUnit;
 
 @ExtendWith(SeleniumExtension.class)
-public class SeleniumVisitServiceTest {
+public class CancelVisitSeleniumTest {
 
     WebDriver driver;
     SeleniumLoginTestHelper helper;
+    private final String SCREENSHOTS = "./src/test/onDemandVisitServiceScreenshots";
 
-    public SeleniumVisitServiceTest(FirefoxDriver driver) {
+    public CancelVisitSeleniumTest(FirefoxDriver driver) {
         this.driver = driver;
 
         DesiredCapabilities dc = new DesiredCapabilities();
@@ -48,26 +49,35 @@ public class SeleniumVisitServiceTest {
     }
 
     @Test
-    @DisplayName("Trying to Cancel a Visit")
+    @DisplayName("trying_to_cancel_a_visit")
     void test_cancel_visit(TestInfo testInfo) throws Exception {
 
         WebDriverWait wait = new WebDriverWait(driver,10);
         JavascriptExecutor js = (JavascriptExecutor) driver;
 
+        //navigate to owners table
         driver.findElement(By.id("navbarDropdown")).click();
         driver.findElement(By.xpath("//a[@href='#!/owners']")).click();
 
+        //waits until Owners Row with Jean Coleman is visible and clicks it
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.linkText("Jean Coleman")));
         driver.findElement(By.linkText("Jean Coleman")).click();
 
+        //waits until the button to add a visit for the pet is visible adn then clicks it
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[@href='#!/owners/6/pets/7/visits']")));
         driver.findElement(By.xpath("//a[@href='#!/owners/6/pets/7/visits']")).click();
 
-        WebElement cancel_button = driver.findElement(By.className("cancel\\x2\\dbutton"));
+        //waits for the first cancel button to be visible and then scrolls down to it and clicks it
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("table.table:nth-child(12) > tbody:nth-child(2) > tr:nth-child(1) > td:nth-child(5) > button:nth-child(1)")));
+        WebElement cancel_button = driver.findElement(By.cssSelector("table.table:nth-child(12) > tbody:nth-child(2) > tr:nth-child(1) > td:nth-child(5) > button:nth-child(1)"));
         js.executeScript("arguments[0].scrollIntoView();", cancel_button);
-
         cancel_button.click();
 
-        TimeUnit.SECONDS.sleep(2);
+        //waits until the confirm button for the confirmation is visible and clicks it
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#confirmationModalConfirmButton")));
+        driver.findElement(By.cssSelector("#confirmationModalConfirmButton")).click();
+
+        //takes a screenshot with the success notifcation
+        takeSnapShot(driver, SCREENSHOTS + "\\" + testInfo.getDisplayName() + "_" + System.currentTimeMillis() + ".png");
     }
 }
