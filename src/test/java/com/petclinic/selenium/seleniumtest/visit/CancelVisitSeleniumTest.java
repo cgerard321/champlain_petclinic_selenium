@@ -55,6 +55,8 @@ public class CancelVisitSeleniumTest {
         WebDriverWait wait = new WebDriverWait(driver,10);
         JavascriptExecutor js = (JavascriptExecutor) driver;
 
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("navbarDropdown")));
+
         //navigate to owners table
         driver.findElement(By.id("navbarDropdown")).click();
         driver.findElement(By.xpath("//a[@href='#!/owners']")).click();
@@ -77,7 +79,7 @@ public class CancelVisitSeleniumTest {
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#confirmationModalConfirmButton")));
         driver.findElement(By.cssSelector("#confirmationModalConfirmButton")).click();
 
-        //takes a screenshot with the success notifcation
+        //takes a screenshot with the success notification
         takeSnapShot(driver, SCREENSHOTS + "\\" + testInfo.getDisplayName() + "_" + System.currentTimeMillis() + ".png");
     }
 }
