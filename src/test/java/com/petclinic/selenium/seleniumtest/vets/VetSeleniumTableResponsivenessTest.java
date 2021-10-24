@@ -82,10 +82,10 @@ public class VetSeleniumTableResponsivenessTest {
             wait.until(ExpectedConditions.urlToBe("http://localhost:8080/#!/vets"));
             WebElement phone = helper.getDriver().findElement(By.className("vet_phone"));
             WebElement email = helper.getDriver().findElement(By.className("vet_email"));
-            WebElement modalPhone = helper.getDriver().findElement(By.className("modal_phone"));
-            WebElement modalEmail = helper.getDriver().findElement(By.className("modal_email"));
+            WebElement speciality = helper.getDriver().findElement(By.className("vet_speciality"));
             assertThat(phone.isDisplayed(), is(true));
             assertThat(email.isDisplayed(), is(true));
+            assertThat(speciality.isDisplayed(),is(true));
 
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("info")));
             Actions actions = new Actions(helper.getDriver());
@@ -95,6 +95,8 @@ public class VetSeleniumTableResponsivenessTest {
 
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("modalOn")));
             WebElement modal = helper.getDriver().findElement(By.className("modalOn"));
+            WebElement modalPhone = helper.getDriver().findElement(By.className("modal_phone"));
+            WebElement modalEmail = helper.getDriver().findElement(By.className("modal_email"));
             assertThat(modal.isDisplayed(), is(true));
             assertThat(modalPhone.isDisplayed(), is(false));
             assertThat(modalEmail.isDisplayed(), is(false));
@@ -126,10 +128,10 @@ public class VetSeleniumTableResponsivenessTest {
             wait.until(ExpectedConditions.urlToBe("http://localhost:8080/#!/vets"));
             WebElement phone = helper.getDriver().findElement(By.className("vet_phone"));
             WebElement email = helper.getDriver().findElement(By.className("vet_email"));
-            WebElement modalPhone = helper.getDriver().findElement(By.className("modal_phone"));
-            WebElement modalEmail = helper.getDriver().findElement(By.className("modal_email"));
+            WebElement speciality = helper.getDriver().findElement(By.className("vet_speciality"));
             assertThat(phone.isDisplayed(), is(false));
             assertThat(email.isDisplayed(), is(true));
+            assertThat(speciality.isDisplayed(),is(true));
 
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("info")));
             Actions actions = new Actions(helper.getDriver());
@@ -139,6 +141,8 @@ public class VetSeleniumTableResponsivenessTest {
 
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("modalOn")));
             WebElement modal = helper.getDriver().findElement(By.className("modalOn"));
+            WebElement modalPhone = helper.getDriver().findElement(By.className("modal_phone"));
+            WebElement modalEmail = helper.getDriver().findElement(By.className("modal_email"));
             assertThat(modal.isDisplayed(), is(true));
             assertThat(modalPhone.isDisplayed(), is(true));
             assertThat(modalEmail.isDisplayed(), is(false));
@@ -170,10 +174,10 @@ public class VetSeleniumTableResponsivenessTest {
             wait.until(ExpectedConditions.urlToBe("http://localhost:8080/#!/vets"));
             WebElement phone = helper.getDriver().findElement(By.className("vet_phone"));
             WebElement email = helper.getDriver().findElement(By.className("vet_email"));
-            WebElement modalPhone = helper.getDriver().findElement(By.className("modal_phone"));
-            WebElement modalEmail = helper.getDriver().findElement(By.className("modal_email"));
+            WebElement speciality = helper.getDriver().findElement(By.className("vet_speciality"));
             assertThat(phone.isDisplayed(), is(false));
             assertThat(email.isDisplayed(), is(false));
+            assertThat(speciality.isDisplayed(),is(true));
 
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("info")));
             Actions actions = new Actions(helper.getDriver());
@@ -183,6 +187,54 @@ public class VetSeleniumTableResponsivenessTest {
 
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("modalOn")));
             WebElement modal = helper.getDriver().findElement(By.className("modalOn"));
+            WebElement modalPhone = helper.getDriver().findElement(By.className("modal_phone"));
+            WebElement modalEmail = helper.getDriver().findElement(By.className("modal_email"));
+            assertThat(modal.isDisplayed(), is(true));
+            assertThat(modalPhone.isDisplayed(), is(true));
+            assertThat(modalEmail.isDisplayed(), is(true));
+
+        }catch (AssertionError e){
+            e.printStackTrace();
+            error = true;
+            throw new AssertionError(e);
+        }
+        finally {
+            if(error) {
+                takeSnapShot(driver, SCREENSHOTS+"/fail/"+method+"_"+System.currentTimeMillis()+".png");
+            }
+            helper.getDriver().quit();
+        }
+    }
+    @Test
+    @DisplayName("Test_Vet_Table_380pxWidth_Modal_and_Table_data")
+    public void testModalAndTableData380pxWidth(TestInfo testInfo) throws Exception{
+        String method = testInfo.getDisplayName();
+        boolean error = false;
+        //assert
+        try {
+            Dimension dimension = new Dimension(380, 1080);
+            helper.getDriver().manage().window().setSize(dimension);
+            WebDriverWait wait = new WebDriverWait(driver,10);
+            wait.until(ExpectedConditions.urlToBe("http://localhost:8080/#!/welcome"));
+            helper.getDriver().get("http://localhost:8080/#!/vets");
+            wait.until(ExpectedConditions.urlToBe("http://localhost:8080/#!/vets"));
+            WebElement phone = helper.getDriver().findElement(By.className("vet_phone"));
+            WebElement email = helper.getDriver().findElement(By.className("vet_email"));
+            WebElement speciality = helper.getDriver().findElement(By.className("vet_speciality"));
+            assertThat(phone.isDisplayed(), is(false));
+            assertThat(email.isDisplayed(), is(false));
+            assertThat(speciality.isDisplayed(),is(false));
+
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("info")));
+            Actions actions = new Actions(helper.getDriver());
+            WebElement info = helper.getDriver().findElement(By.className("info"));
+            actions.moveToElement(info);
+            actions.build().perform();
+
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("modalOn")));
+            WebElement modal = helper.getDriver().findElement(By.className("modalOn"));
+            WebElement modalPhone = helper.getDriver().findElement(By.className("modal_phone"));
+            WebElement modalEmail = helper.getDriver().findElement(By.className("modal_email"));
             assertThat(modal.isDisplayed(), is(true));
             assertThat(modalPhone.isDisplayed(), is(true));
             assertThat(modalEmail.isDisplayed(), is(true));
