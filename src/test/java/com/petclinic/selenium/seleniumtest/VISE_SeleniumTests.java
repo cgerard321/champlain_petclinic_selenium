@@ -232,13 +232,10 @@ public class VISE_SeleniumTests {
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.linkText("Add Visit")));
         driverElement = driver.findElement(By.linkText("Add Visit"));
         driverElement.click();
-        TimeUnit.SECONDS.sleep(2);
-
 
 
         //Create a visit
-        TimeUnit.SECONDS.sleep(2);//special case because it's a textbox
-
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"selectedVet\"]/option[1]")));
         driver.findElement(By.xpath("//*[@id=\"selectedVet\"]/option[1]")).click();
         TimeUnit.SECONDS.sleep(2);
         String selectedVet = driver.findElement(By.xpath("//*[@id=\"selectedVet\"]/option[3]")).getText();
@@ -249,7 +246,6 @@ public class VISE_SeleniumTests {
         // Necessary scroll
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("window.scrollBy(0,250)", "");
-
         driver.findElement(By.xpath("//*[@id=\"selectedVet\"]/option[3]")).click();
         TimeUnit.SECONDS.sleep(1);
 
@@ -258,7 +254,6 @@ public class VISE_SeleniumTests {
         driver.findElement(By.id("submit_button")).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("confirmationModalConfirmButton")));
         driver.findElement(By.id("confirmationModalConfirmButton")).click();
-
         TimeUnit.SECONDS.sleep(2);//to let time to the application to create the visit
 
 
