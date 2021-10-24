@@ -10,6 +10,7 @@ import org.junit.jupiter.api.TestInfo;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -17,6 +18,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
@@ -76,10 +79,11 @@ public class VetSeleniumTableResponsivenessTest {
         try {
             Dimension dimension = new Dimension(1920, 1080);
             helper.getDriver().manage().window().setSize(dimension);
-            WebDriverWait wait = new WebDriverWait(driver,10);
+            WebDriverWait wait = new WebDriverWait(helper.getDriver(),10);
             wait.until(ExpectedConditions.urlToBe("http://localhost:8080/#!/welcome"));
             helper.getDriver().get("http://localhost:8080/#!/vets");
             wait.until(ExpectedConditions.urlToBe("http://localhost:8080/#!/vets"));
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("vet_phone")));
             WebElement phone = helper.getDriver().findElement(By.className("vet_phone"));
             WebElement email = helper.getDriver().findElement(By.className("vet_email"));
             WebElement speciality = helper.getDriver().findElement(By.className("vet_speciality"));
@@ -122,10 +126,11 @@ public class VetSeleniumTableResponsivenessTest {
         try {
             Dimension dimension = new Dimension(768, 1080);
             helper.getDriver().manage().window().setSize(dimension);
-            WebDriverWait wait = new WebDriverWait(driver,10);
+            WebDriverWait wait = new WebDriverWait(helper.getDriver(),10);
             wait.until(ExpectedConditions.urlToBe("http://localhost:8080/#!/welcome"));
             helper.getDriver().get("http://localhost:8080/#!/vets");
             wait.until(ExpectedConditions.urlToBe("http://localhost:8080/#!/vets"));
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("vet_email")));
             WebElement phone = helper.getDriver().findElement(By.className("vet_phone"));
             WebElement email = helper.getDriver().findElement(By.className("vet_email"));
             WebElement speciality = helper.getDriver().findElement(By.className("vet_speciality"));
@@ -168,10 +173,11 @@ public class VetSeleniumTableResponsivenessTest {
         try {
             Dimension dimension = new Dimension(550, 1080);
             helper.getDriver().manage().window().setSize(dimension);
-            WebDriverWait wait = new WebDriverWait(driver,10);
+            WebDriverWait wait = new WebDriverWait(helper.getDriver(),10);
             wait.until(ExpectedConditions.urlToBe("http://localhost:8080/#!/welcome"));
             helper.getDriver().get("http://localhost:8080/#!/vets");
             wait.until(ExpectedConditions.urlToBe("http://localhost:8080/#!/vets"));
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("vet_speciality")));
             WebElement phone = helper.getDriver().findElement(By.className("vet_phone"));
             WebElement email = helper.getDriver().findElement(By.className("vet_email"));
             WebElement speciality = helper.getDriver().findElement(By.className("vet_speciality"));
@@ -212,12 +218,23 @@ public class VetSeleniumTableResponsivenessTest {
         boolean error = false;
         //assert
         try {
-            Dimension dimension = new Dimension(380, 1080);
-            helper.getDriver().manage().window().setSize(dimension);
-            WebDriverWait wait = new WebDriverWait(driver,10);
+            Map<String, Object> deviceMetrics = new HashMap<>();
+            deviceMetrics.put("width", 800);
+            deviceMetrics.put("height", 1280);
+            deviceMetrics.put("pixelRatio", 1.0);
+            Map<String, Object> mobileEmulation = new HashMap<>();
+            mobileEmulation.put("deviceMetrics", deviceMetrics);
+            mobileEmulation.put("userAgent", "Mozilla/5.0 (Linux; Android 4.2.1; en-us; Nexus 5 Build/JOP40D) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.166 Mobile Safari/535.19");
+            ChromeOptions chromeOptions = new ChromeOptions();
+            chromeOptions.setExperimentalOption("mobileEmulation", mobileEmulation);
+            helper.getDriver().quit();
+            helper.setDriver(new ChromeDriver(chromeOptions));
+            helper.loginTest();
+            WebDriverWait wait = new WebDriverWait(helper.getDriver(),10);
             wait.until(ExpectedConditions.urlToBe("http://localhost:8080/#!/welcome"));
             helper.getDriver().get("http://localhost:8080/#!/vets");
             wait.until(ExpectedConditions.urlToBe("http://localhost:8080/#!/vets"));
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("switch")));
             WebElement phone = helper.getDriver().findElement(By.className("vet_phone"));
             WebElement email = helper.getDriver().findElement(By.className("vet_email"));
             WebElement speciality = helper.getDriver().findElement(By.className("vet_speciality"));
