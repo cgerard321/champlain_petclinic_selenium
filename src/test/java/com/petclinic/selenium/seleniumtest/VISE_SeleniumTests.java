@@ -76,7 +76,7 @@ public class VISE_SeleniumTests {
         driver.findElement(By.linkText("Owners")).click();
 
         //wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"navbarSupportedContent\"]/ul[1]/li[4]/div/a[1]")));
-        WebElement a1 = driver.findElement(By.xpath("//*[@id=\"navbarSupportedContent\"]/ul[1]/li[4]/div/a[1]"));
+        WebElement a1 = driver.findElement(By.xpath("//a[@href='#!/owners']"));
         a1.click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.linkText("Betty Davis"))); //Will crash here if not wait
         a1 = driver.findElement(By.linkText("Betty Davis"));
