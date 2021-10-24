@@ -214,12 +214,13 @@ public class VetSeleniumTableResponsivenessTest {
     @Test
     @DisplayName("Test_Vet_Table_380pxWidth_Modal_and_Table_data")
     public void testModalAndTableData380pxWidth(TestInfo testInfo) throws Exception{
+        helper.getDriver().quit();
         String method = testInfo.getDisplayName();
         boolean error = false;
         //assert
         try {
             Map<String, Object> deviceMetrics = new HashMap<>();
-            deviceMetrics.put("width", 800);
+            deviceMetrics.put("width", 380);
             deviceMetrics.put("height", 1280);
             deviceMetrics.put("pixelRatio", 1.0);
             Map<String, Object> mobileEmulation = new HashMap<>();
@@ -227,7 +228,6 @@ public class VetSeleniumTableResponsivenessTest {
             mobileEmulation.put("userAgent", "Mozilla/5.0 (Linux; Android 4.2.1; en-us; Nexus 5 Build/JOP40D) AppleWebKit/535.19 (KHTML, like Gecko) Chrome/18.0.1025.166 Mobile Safari/535.19");
             ChromeOptions chromeOptions = new ChromeOptions();
             chromeOptions.setExperimentalOption("mobileEmulation", mobileEmulation);
-            helper.getDriver().quit();
             helper.setDriver(new ChromeDriver(chromeOptions));
             helper.loginTest();
             WebDriverWait wait = new WebDriverWait(helper.getDriver(),10);
@@ -241,20 +241,6 @@ public class VetSeleniumTableResponsivenessTest {
             assertThat(phone.isDisplayed(), is(false));
             assertThat(email.isDisplayed(), is(false));
             assertThat(speciality.isDisplayed(),is(false));
-
-            wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("info")));
-            Actions actions = new Actions(helper.getDriver());
-            WebElement info = helper.getDriver().findElement(By.className("info"));
-            actions.moveToElement(info);
-            actions.build().perform();
-
-            wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("modalOn")));
-            WebElement modal = helper.getDriver().findElement(By.className("modalOn"));
-            WebElement modalPhone = helper.getDriver().findElement(By.className("modal_phone"));
-            WebElement modalEmail = helper.getDriver().findElement(By.className("modal_email"));
-            assertThat(modal.isDisplayed(), is(true));
-            assertThat(modalPhone.isDisplayed(), is(true));
-            assertThat(modalEmail.isDisplayed(), is(true));
 
         }catch (AssertionError e){
             e.printStackTrace();
