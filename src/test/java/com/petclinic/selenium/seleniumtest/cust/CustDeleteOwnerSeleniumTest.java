@@ -66,22 +66,22 @@ public class CustDeleteOwnerSeleniumTest {
         WebDriverWait wait = new WebDriverWait(driver, 10);
         wait.until(ExpectedConditions.urlToBe("http://localhost:8080/#!/welcome"));
         helper.getDriver().get("http://localhost:8080/#!/owners");
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[@href='#!/owners/details/4']")));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[@href='#!/owners/details/5']")));
         takeSnapshot(driver, SCREENSHOTS + "\\" + method + "_" + System.currentTimeMillis() + ".png");
         Thread.sleep(2000);
-        helper.getDriver().findElement(By.xpath("//a[@href='#!/owners/details/4']")).click();
+        helper.getDriver().findElement(By.xpath("//a[@href='#!/owners/details/5']")).click();
         takeSnapshot(driver, SCREENSHOTS + "\\" + method + "_" + System.currentTimeMillis() + ".png");
         Thread.sleep(2000);
-        wait.until(ExpectedConditions.urlToBe("http://localhost:8080/#!/owners/details/4"));
+        wait.until(ExpectedConditions.urlToBe("http://localhost:8080/#!/owners/details/5"));
         Thread.sleep(5000);
         WebElement deleteButton = driver.findElement(By.xpath("//*[contains(text(),'Delete Owner')]"));
         deleteButton.click();
-        wait.until(ExpectedConditions.urlToBe("http://localhost:8080/#!/owners/4/delete"));
+        wait.until(ExpectedConditions.urlToBe("http://localhost:8080/#!/owners/5/delete"));
         Thread.sleep(2000);
         WebElement submitButton = driver.findElement(By.xpath("//*[contains(text(),'Submit')]"));
         submitButton.click();
         Thread.sleep(5000);
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//a[@href='#!/owners/details/4']")));
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//a[@href='#!/owners/details/5']")));
         takeSnapshot(driver, SCREENSHOTS + "\\" + method + "_" + System.currentTimeMillis() + ".png");
 
         driver.quit();
