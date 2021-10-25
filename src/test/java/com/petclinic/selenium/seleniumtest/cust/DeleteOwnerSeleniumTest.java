@@ -55,6 +55,7 @@ public class DeleteOwnerSeleniumTest {
         driver.get("http://localhost:8080/#!/owners");
         driver.manage().window().maximize();
 
+
         Thread.sleep(2000);
 
         WebElement owners = driver.findElement(By.xpath("//*[contains(text(),'Owners')]"));
@@ -72,6 +73,9 @@ public class DeleteOwnerSeleniumTest {
         deleteButton.click();
 
         Thread.sleep(2000);
+
+        WebElement deleteButton = driver.findElement(By.xpath("//*[contains(text(),'Delete Owner')]"));
+        deleteButton.click();
 
         WebElement submitButton = driver.findElement(By.xpath("//*[contains(text(),'Submit')]"));
         submitButton.click();
