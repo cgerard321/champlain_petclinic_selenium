@@ -104,8 +104,7 @@ public class SeleniumBillingServiceTest {
         helper.getDriver().quit();
     }
 
-    @Test
-
+@Test
     @DisplayName("Take a snapshot of bill details page")
     public void takeBillingServiceDetailsPageSnapshot(TestInfo testInfo) throws Exception{
         WebElement billsTab = helper.getDriver().findElement(By.id("navbarDropdown1"));
@@ -134,7 +133,9 @@ public class SeleniumBillingServiceTest {
 
         helper.getDriver().quit();
 
-
+    }
+  
+  @Test
     @DisplayName("Take a snapshot after search bar")
     public void takeBillingServiceHistoryPageSearchBarSnapShot(TestInfo testInfo) throws Exception{
         try {
@@ -158,6 +159,49 @@ public class SeleniumBillingServiceTest {
        String id = helper.getDriver().findElement(By.xpath("//*[@id=\"billId\"]/td[3]")).getText();
 
        assertThat(id, is("59.99"));
+
+        helper.getDriver().quit();
+    }
+  
+
+@Test
+    @DisplayName("Test a snapshot to delete the bill")
+    public void takeBillingServiceDelete(TestInfo testInfo) throws Exception {
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        WebElement billsTab = helper.getDriver().findElement(By.id("navbarDropdown1"));
+        billsTab.click();
+
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        WebElement billHistoryLink = helper.getDriver().findElement(By.xpath("//a[@href='#!/bills']"));
+        billHistoryLink.click();
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        WebDriverWait wait = new WebDriverWait(driver,2);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//table[@class='table table-striped']")));
+
+        WebElement table = helper.getDriver().findElement(By.xpath("//table[@class='table table-striped']"));
+        List<WebElement> rows = table.findElements(By.tagName("tr"));
+        List<WebElement> buttons = driver.findElements(By.xpath("//*[@id=\"billId\"]/td[5]/a"));
+        buttons.get(0).click();
+        driver.switchTo().alert().accept();
+        String method = testInfo.getDisplayName();
+        takeSnapShot(helper.getDriver(), SCREENSHOTS + "\\" + method + "_" + System.currentTimeMillis() + ".png");
+
+        TimeUnit.SECONDS.sleep(1);
+
+        assertThat(rows.size(), is(6));
 
         helper.getDriver().quit();
     }
