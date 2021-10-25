@@ -72,7 +72,7 @@ public class CustDeleteOwnerSeleniumTest {
         WebElement submitButton = driver.findElement(By.xpath("//*[contains(text(),'Submit')]"));
         submitButton.click();
         Thread.sleep(5000);
-        ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[@href='#!/owners/details/3']"))
+        ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[@href='#!/owners/details/3']"));
         String method = testInfo.getDisplayName();
         takeSnapshot(driver, SCREENSHOTS + "\\" + method + "_" + System.currentTimeMillis() + ".png");
 
