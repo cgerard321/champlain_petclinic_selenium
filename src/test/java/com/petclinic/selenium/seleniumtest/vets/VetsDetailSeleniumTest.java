@@ -1,4 +1,4 @@
-package com.petclinic.selenium.seleniumtest.vet;
+package com.petclinic.selenium.seleniumtest.vets;
 
 import io.github.bonigarcia.seljup.SeleniumExtension;
 import org.apache.commons.io.FileUtils;
