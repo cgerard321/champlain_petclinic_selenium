@@ -1,4 +1,4 @@
-package com.petclinic.selenium.seleniumtest.vet;
+package com.petclinic.selenium.seleniumtest.vets;
 
 import io.github.bonigarcia.seljup.SeleniumExtension;
 import org.apache.commons.io.FileUtils;
@@ -9,18 +9,16 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
-
-import java.util.concurrent.TimeUnit;
-
 import java.io.File;
+import java.util.concurrent.TimeUnit;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
 @ExtendWith(SeleniumExtension.class)
 public class VetsAvailabilityTest {
-    ChromeDriver driver;
     private final String SCREENSHOTS = "./src/test/onDemandScreenshots";
+    ChromeDriver driver;
 
     public VetsAvailabilityTest(ChromeDriver driver) {
         this.driver = driver;
@@ -71,12 +69,12 @@ public class VetsAvailabilityTest {
 
             String[] arrWorkDays = workDays.split(", ");
             String[] xPaths = new String[arrWorkDays.length];
-            for(int i = 0; i<arrWorkDays.length; i++) {
-                xPaths[i] = String.format("//*[@id=\"%s\"]",arrWorkDays[i]);
+            for (int i = 0; i < arrWorkDays.length; i++) {
+                xPaths[i] = String.format("//*[@id=\"%s\"]", arrWorkDays[i]);
             }
 
 
-            JavascriptExecutor js = ((JavascriptExecutor) driver);
+            JavascriptExecutor js = driver;
             js.executeScript("window.scrollTo(0, document.body.scrollHeight)");
             TimeUnit.SECONDS.sleep(3);
             driver.findElement(By.xpath("//*[@id=\"toggle\"]")).click();
@@ -84,7 +82,7 @@ public class VetsAvailabilityTest {
             TimeUnit.SECONDS.sleep(1);
 
             String[] daysColor = new String[arrWorkDays.length];
-            for(int i = 0; i<daysColor.length; i++) {
+            for (int i = 0; i < daysColor.length; i++) {
                 daysColor[i] = driver.findElement(By.xpath(xPaths[i])).getCssValue("background-color");
             }
 
