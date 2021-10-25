@@ -7,6 +7,7 @@ import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -19,6 +20,7 @@ import java.util.concurrent.TimeUnit;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.not;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ExtendWith(SeleniumExtension.class)
@@ -103,6 +105,36 @@ public class SeleniumBillingServiceTest {
     }
 
     @Test
+
+    @DisplayName("Take a snapshot of bill details page")
+    public void takeBillingServiceDetailsPageSnapshot(TestInfo testInfo) throws Exception{
+        WebElement billsTab = helper.getDriver().findElement(By.id("navbarDropdown1"));
+        billsTab.click();
+
+        WebElement billHistoryLink = helper.getDriver().findElement(By.xpath("//a[@href='#!/bills']"));
+        billHistoryLink.click();
+
+        WebDriverWait wait = new WebDriverWait(driver, 2);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//table[@class='table table-striped']")));
+
+        WebElement billDetailsLink = helper.getDriver().findElement(By.linkText("Get Details"));
+        billDetailsLink.click();
+
+        WebDriverWait waitDetails = new WebDriverWait(driver,2);
+        waitDetails.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h2[@class='titleOwner ng-binding']")));
+
+        WebElement billIDDetail = helper.getDriver().findElement(By.xpath("//h2[@class='titleOwner ng-binding']"));
+
+        String method = testInfo.getDisplayName();
+        takeSnapShot(helper.getDriver(), SCREENSHOTS + "\\" + method + "_" + System.currentTimeMillis() + ".png");
+
+        TimeUnit.SECONDS.sleep(1);
+
+        assertThat(billIDDetail, not("Bill Details: "));
+
+        helper.getDriver().quit();
+
+
     @DisplayName("Take a snapshot after search bar")
     public void takeBillingServiceHistoryPageSearchBarSnapShot(TestInfo testInfo) throws Exception{
         try {
