@@ -3,10 +3,7 @@ package com.petclinic.selenium.seleniumbillingservicetest;
 import com.petclinic.selenium.SeleniumLoginTestHelper;
 import io.github.bonigarcia.seljup.SeleniumExtension;
 import org.apache.commons.io.FileUtils;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInfo;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -63,10 +60,10 @@ public class SeleniumBillingServiceTest {
     @Test
     @DisplayName("Test to see if the history page loads")
     public void takeBillingServiceSnapshot(TestInfo testInfo) throws Exception {
-        WebElement billsTab = helper.getDriver().findElement(By.id("navbarDropdown1"));
+        WebElement billsTab = helper.getDriver().findElement(By.linkText("Bills"));
         billsTab.click();
 
-        WebElement billHistoryLink = helper.getDriver().findElement(By.xpath("//a[@href='#!/bills']"));
+        WebElement billHistoryLink = helper.getDriver().findElement(By.linkText("Bills"));
         billHistoryLink.click();
 
         WebElement billHistoryHeader = helper.getDriver().findElement(By.className("titleOwner"));
@@ -84,7 +81,8 @@ public class SeleniumBillingServiceTest {
     @Test
     @DisplayName("Test a snapshot to get the table data")
     public void takeBillingServiceHistoryPageSnapshot(TestInfo testInfo) throws Exception {
-        WebElement billsTab = helper.getDriver().findElement(By.id("navbarDropdown1"));
+
+        WebElement billsTab = helper.getDriver().findElement(By.linkText("Bills"));
         billsTab.click();
 
         WebElement billHistoryLink = helper.getDriver().findElement(By.xpath("//a[@href='#!/bills']"));
@@ -107,6 +105,7 @@ public class SeleniumBillingServiceTest {
     }
 
     @Test
+
     @DisplayName("Take a snapshot of bill details page")
     public void takeBillingServiceDetailsPageSnapshot(TestInfo testInfo) throws Exception{
         WebElement billsTab = helper.getDriver().findElement(By.id("navbarDropdown1"));
@@ -135,5 +134,31 @@ public class SeleniumBillingServiceTest {
 
         helper.getDriver().quit();
 
+
+    @DisplayName("Take a snapshot after search bar")
+    public void takeBillingServiceHistoryPageSearchBarSnapShot(TestInfo testInfo) throws Exception{
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        WebElement billsTab = helper.getDriver().findElement(By.linkText("Bills"));
+        billsTab.click();
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+       helper.getDriver().findElement(By.xpath("//*[@id=\"bg\"]/div/div/div/ui-view/bill-history/form/div/input")).sendKeys("59");
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+       String id = helper.getDriver().findElement(By.xpath("//*[@id=\"billId\"]/td[3]")).getText();
+
+       assertThat(id, is("59.99"));
+
+        helper.getDriver().quit();
     }
 }
