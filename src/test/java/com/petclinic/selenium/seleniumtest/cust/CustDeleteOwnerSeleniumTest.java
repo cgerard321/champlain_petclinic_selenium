@@ -60,7 +60,7 @@ public class CustDeleteOwnerSeleniumTest {
 
         driver.get("http://localhost:8080/#!/owners");
         driver.manage().window().maximize();
-
+        String method = testInfo.getDisplayName();
         Thread.sleep(2000);
 
         WebDriverWait wait = new WebDriverWait(driver, 10);
@@ -68,6 +68,8 @@ public class CustDeleteOwnerSeleniumTest {
         helper.getDriver().get("http://localhost:8080/#!/owners");
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[@href='#!/owners/details/4']")));
         helper.getDriver().findElement(By.xpath("//a[@href='#!/owners/details/4']")).click();
+        takeSnapshot(driver, SCREENSHOTS + "\\" + method + "_" + System.currentTimeMillis() + ".png");
+        Thread.sleep(2000);
         wait.until(ExpectedConditions.urlToBe("http://localhost:8080/#!/owners/details/4"));
         Thread.sleep(5000);
         WebElement deleteButton = driver.findElement(By.xpath("//*[contains(text(),'Delete Owner')]"));
@@ -78,7 +80,6 @@ public class CustDeleteOwnerSeleniumTest {
         submitButton.click();
         Thread.sleep(5000);
         wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//a[@href='#!/owners/details/4']")));
-        String method = testInfo.getDisplayName();
         takeSnapshot(driver, SCREENSHOTS + "\\" + method + "_" + System.currentTimeMillis() + ".png");
 
         driver.quit();
