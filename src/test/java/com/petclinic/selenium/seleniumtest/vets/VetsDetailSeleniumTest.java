@@ -1,33 +1,26 @@
-package com.petclinic.selenium.seleniumtest.vet;
+package com.petclinic.selenium.seleniumtest.vets;
 
 import io.github.bonigarcia.seljup.SeleniumExtension;
 import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInfo;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.support.ui.Select;
 
 import java.io.File;
-import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-/*
-This test was prepared by Shariful Islam
-It's testing UI Creation of a VET
-IMPORTANT NOTICE: This test only works once as soon as the system is up as it tests assuming the database is starting fresh.
- */
-@ExtendWith(SeleniumExtension.class)
-public class VetsCreateSeleniumTest {
-    ChromeDriver driver;
-    private final String SCREENSHOTS = "./src/test/onDemandScreenshots";
 
-    public VetsCreateSeleniumTest(ChromeDriver driver) {
+@ExtendWith(SeleniumExtension.class)
+public class VetsDetailSeleniumTest {
+    private final String SCREENSHOTS = "./src/test/onDemandScreenshots";
+    ChromeDriver driver;
+
+    public VetsDetailSeleniumTest(ChromeDriver driver) {
         this.driver = driver;
 
         DesiredCapabilities dc = new DesiredCapabilities();
@@ -64,9 +57,15 @@ public class VetsCreateSeleniumTest {
         }
     }
 
+    /*
+    The following test will use a ChromeDriver object to make sure that
+    1 All html elements are generated correctly
+    2 All values displayed are corresponding to the values in the database
+    3 The buttons are responsive and the action on the button is completed
+    */
     @Test
-    @DisplayName("Testing the creation of a vet and Verifying")
-    void test_create_vet() throws Exception {
+    @DisplayName("test_detail_vet")
+    void test_detail_vet() throws Exception {
 
         driver.get("http://localhost:8080");
         driver.manage().window().maximize();
@@ -74,64 +73,61 @@ public class VetsCreateSeleniumTest {
         Login();
 
         driver.findElement(By.linkText("Veterinarians")).click();
-        driver.findElement(By.xpath("//*[@id=\"bg\"]/div/div/div/ui-view/vet-list/a/button")).click();
-
-        driver.findElement(By.xpath("//*[@id=\"firstName\"]")).sendKeys("New");
-        driver.findElement(By.xpath("//*[@id=\"lastName\"]")).sendKeys("User");
-        driver.findElement(By.xpath("//*[@id=\"email\"]")).sendKeys("new@user.com");
-        driver.findElement(By.xpath("//*[@id=\"phoneNumber\"]")).sendKeys("6543");
-        driver.findElement(By.xpath("//*[@id=\"vetResume\"]")).sendKeys("New User Resume");
-        driver.findElement(By.xpath("//*[@id=\"surgery\"]")).sendKeys(Keys.SPACE);
-        driver.findElement(By.xpath("//*[@id=\"workDays\"]")).sendKeys("Monday, Tuesday");
-        driver.findElement(By.xpath("//*[@id=\"vetForm\"]/div/div[10]/div[1]/label/input")).sendKeys(Keys.SPACE);
-        driver.findElement(By.xpath("//*[@id=\"vetForm\"]/div/button")).sendKeys(Keys.SPACE);
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        WebElement previewName = driver.findElement(By.xpath("//*[@id=\"bg\"]/div/div/div/ui-view/vet-list/table/tbody/tr[7]/td[2]/a/span"));
-        assertThat(previewName.getText(), is("New User"));
-
-        WebElement previewEmail = driver.findElement(By.xpath("//*[@id=\"bg\"]/div/div/div/ui-view/vet-list/table/tbody/tr[7]/td[3]/span"));
-        assertThat(previewEmail.getText(), is("(514)-634-8276 #6543"));
-
-        WebElement previewPhone = driver.findElement(By.xpath("//*[@id=\"bg\"]/div/div/div/ui-view/vet-list/table/tbody/tr[7]/td[4]/span"));
-        assertThat(previewPhone.getText(), is("new@user.com"));
-
-        WebElement previewSpecialty = driver.findElement(By.xpath("//*[@id=\"bg\"]/div/div/div/ui-view/vet-list/table/tbody/tr[7]/td[5]/span"));
-        assertThat(previewSpecialty.getText(), is("surgery"));
-
-
-        driver.findElement(By.xpath("//*[@id=\"bg\"]/div/div/div/ui-view/vet-list/table/tbody/tr[7]/td[2]/a")).click();
         try {
             Thread.sleep(5000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
+        driver.findElement(By.xpath("//*[@id=\"bg\"]/div/div/div/ui-view/vet-list/table/tbody/tr[1]/td[2]/a")).click();
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        // Test name and lastname
         WebElement name = driver.findElement(By.xpath("//*[@id=\"bg\"]/div/div/div/ui-view/vet-details/div/div[2]/div/div[2]/div[1]"));
-        assertThat(name.getText(), is("New User"));
+        assertThat(name.getText(), is("James Carter"));
 
+        //Test email
         WebElement email = driver.findElement(By.xpath("//*[@id=\"bg\"]/div/div/div/ui-view/vet-details/div/div[2]/div/div[2]/div[2]"));
-        assertThat(email.getText(), is("new@user.com"));
+        assertThat(email.getText(), is("carter.james@email.com"));
 
+        //Test phone
         WebElement phone = driver.findElement(By.xpath("//*[@id=\"bg\"]/div/div/div/ui-view/vet-details/div/div[2]/div/div[2]/div[3]"));
-        assertThat(phone.getText(), is("(514)-634-8276 #6543"));
+        assertThat(phone.getText(), is("(514)-634-8276 #2384"));
 
+        //Test speciality
         WebElement speciality = driver.findElement(By.xpath("//*[@id=\"bg\"]/div/div/div/ui-view/vet-details/div/div[2]/div/div[2]/div[4]/div/span"));
-        assertThat(speciality.getText(), is("surgery"));
+        assertThat(speciality.getText(), is("general"));
 
+        //Test resume
         WebElement resume = driver.findElement(By.xpath("//*[@id=\"bg\"]/div/div/div/ui-view/vet-details/div/div[2]/div/div[2]/div[5]/div"));
-        assertThat(resume.getText(), is("New User Resume"));
+        assertThat(resume.getText(), is("Practicing since 3 years"));
 
+        //Test workday
         WebElement workday = driver.findElement(By.xpath("//*[@id=\"bg\"]/div/div/div/ui-view/vet-details/div/div[2]/div/div[2]/div[6]/div/div"));
-        assertThat(workday.getText(), is("Monday, Tuesday"));
+        assertThat(workday.getText(), is("Monday, Tuesday, Friday"));
 
+        //Test Show Availabilities Button
         WebElement button = driver.findElement(By.xpath("//*[@id=\"toggle\"]"));
         assertThat(button.getText(), is("Show availabilities"));
 
-        WebElement editButton = driver.findElement(By.xpath("//*[@id=\"bg\"]/div/div/div/ui-view/vet-details/div/div[2]/div/div[2]/div[8]/div/a/button"));
+        //Clicking on the show availabilities button
+        button.sendKeys(Keys.SPACE);
+
+        //Verifying that the text on button is changed to "Hide availabilities"
+        assertThat(button.getText(), is("Hide availabilities"));
+
+        //Clicking on the hide availabilities button
+        button.sendKeys(Keys.SPACE);
+
+        //Verifying that the text on button is changed to "Hide availabilities"
+        assertThat(button.getText(), is("Show availabilities"));
+
+        //Verifying the edit button text
+        WebElement editButton = driver.findElement(By.xpath("//*[@id=\"bg\"]/div/div/div/ui-view/vet-details/div/div[2]/div/div[2]/div[8]/div/a"));
         assertThat(editButton.getText(), is("Edit Vet"));
 
         try {
@@ -141,4 +137,5 @@ public class VetsCreateSeleniumTest {
         }
         driver.quit();
     }
+
 }

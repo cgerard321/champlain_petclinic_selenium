@@ -1,10 +1,9 @@
-package com.petclinic.selenium.seleniumtest.vet;
+package com.petclinic.selenium.seleniumtest.vets;
 
 import io.github.bonigarcia.seljup.SeleniumExtension;
 import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInfo;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -20,8 +19,8 @@ import static org.hamcrest.Matchers.is;
 
 @ExtendWith(SeleniumExtension.class)
 public class VetsFilterSeleniumTest {
-    ChromeDriver driver;
     private final String SCREENSHOTS = "./src/test/onDemandScreenshots";
+    ChromeDriver driver;
 
     public VetsFilterSeleniumTest(ChromeDriver driver) {
         this.driver = driver;
@@ -45,7 +44,7 @@ public class VetsFilterSeleniumTest {
         FileUtils.copyFile(SrcFile, DestFile);
     }
 
-    void Login(){
+    void Login() {
         driver.get("http://localhost:8080");
         driver.manage().window().maximize();
 
