@@ -131,7 +131,7 @@ public class SeleniumBillingServiceTest {
 
         TimeUnit.SECONDS.sleep(1);
 
-        assertThat(billIDDetail, not(""));
+        assertThat(billIDDetail, not("Bill Details: "));
 
         helper.getDriver().quit();
 
