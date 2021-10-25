@@ -60,7 +60,7 @@ public class CustDeleteOwnerSeleniumTest {
 
         driver.get("http://localhost:8080/#!/owners");
         driver.manage().window().maximize();
-
+        String method = testInfo.getDisplayName();
         Thread.sleep(2000);
 
         WebDriverWait wait = new WebDriverWait(driver, 10);
@@ -80,7 +80,6 @@ public class CustDeleteOwnerSeleniumTest {
         submitButton.click();
         Thread.sleep(5000);
         wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//a[@href='#!/owners/details/4']")));
-        String method = testInfo.getDisplayName();
         takeSnapshot(driver, SCREENSHOTS + "\\" + method + "_" + System.currentTimeMillis() + ".png");
 
         driver.quit();
