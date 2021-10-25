@@ -1,10 +1,15 @@
 package com.petclinic.selenium.seleniumtest.visit;
 
+import com.petclinic.selenium.SeleniumLoginTestHelper;
+import io.github.bonigarcia.seljup.SeleniumExtension;
 import org.apache.commons.io.FileUtils;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInfo;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.openqa.selenium.*;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.opera.OperaDriver;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -17,12 +22,14 @@ import java.util.concurrent.TimeUnit;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
+@ExtendWith(SeleniumExtension.class)
 public class DeleteVisitSeleniumTest {
 
-    OperaDriver driver;
-    private final String SCREENSHOTS = "./src/test/onDemandScreenshots";
+    WebDriver driver;
+    SeleniumLoginTestHelper helper;
+    private final String SCREENSHOTS = "./src/test/onDemandVisitServiceScreenshots/delete";
 
-    public DeleteVisitSeleniumTest(OperaDriver driver) {
+    public DeleteVisitSeleniumTest(FirefoxDriver driver) {
         this.driver = driver;
 
         DesiredCapabilities dc = new DesiredCapabilities();
@@ -44,21 +51,17 @@ public class DeleteVisitSeleniumTest {
         FileUtils.copyFile(SrcFile, DestFile);
     }
 
+    @BeforeEach
+    void setupLogin() throws Exception {
+        this.helper = new SeleniumLoginTestHelper("LoginTestHelper", driver);
+        helper.loginTest();
+    }
+
     @Test
     @DisplayName("test_delete_a_visit")
     void test_delete_a_visit(TestInfo testInfo) throws Exception {
 
         WebDriverWait wait=new WebDriverWait(driver, 5);
-
-        //setting up path and window size
-        driver.get("http://localhost:8080");
-        driver.manage().window().maximize();
-
-        //enter authentication information
-        driver.findElement(By.id("email")).sendKeys("admin");
-        driver.findElement(By.id("pwd")).sendKeys("admin");
-        driver.findElement(By.id("button")).click();
-
 
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.linkText("Owners")));
 
@@ -109,17 +112,7 @@ public class DeleteVisitSeleniumTest {
         //wait max 5 seconds before a timeout
         WebDriverWait wait=new WebDriverWait(driver, 5);
 
-        //setting up path and window size
-        driver.get("http://localhost:8080");
-        driver.manage().window().maximize();
-
-        //enter authentication information
-        driver.findElement(By.id("email")).sendKeys("admin");
-        driver.findElement(By.id("pwd")).sendKeys("admin");
-        driver.findElement(By.id("button")).click();
-
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.linkText("Owners")));
-
 
         //navigation to visits page
         driver.findElement(By.linkText("Owners")).click();
