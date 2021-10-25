@@ -22,11 +22,10 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ExtendWith(SeleniumExtension.class)
-public class VetsUpdateSeleniumTest
-{
+public class VetsUpdateSeleniumTest {
+    private final String SCREENSHOTS = "./src/test/screenshots/vet_update";
     ChromeDriver driver;
     SeleniumLoginTestHelper helper;
-    private final String SCREENSHOTS = "./src/test/screenshots/vet_update";
 
     public VetsUpdateSeleniumTest(ChromeDriver driver) {
         this.driver = driver;
@@ -37,7 +36,8 @@ public class VetsUpdateSeleniumTest
         System.setProperty("sel.jup.screenshot.format", "png");
         System.setProperty("sel.jup.output.folder", "./src/test/onFailureScreenshots");
     }
-    public static void takeSnapShot(WebDriver webDriver, String fileWithPath) throws Exception{
+
+    public static void takeSnapShot(WebDriver webDriver, String fileWithPath) throws Exception {
 
         //Convert web driver object to TakeScreenshot
         TakesScreenshot scrShot = ((TakesScreenshot) webDriver);
@@ -46,23 +46,23 @@ public class VetsUpdateSeleniumTest
         //Move image file to new destination
         File DestFile = new File(fileWithPath);
         //Copy file at destination
-        FileUtils.copyFile(SrcFile,DestFile);
+        FileUtils.copyFile(SrcFile, DestFile);
     }
+
     @BeforeEach
-    public void setup() throws Exception{
+    public void setup() throws Exception {
         this.helper = new SeleniumLoginTestHelper("Vets", driver);
         helper.loginTest();
     }
+
     @Test
     @DisplayName("Test_Vet_Update")
-    public void testVetUpdate() throws Exception
-    {
+    public void testVetUpdate() throws Exception {
         boolean error = false;
         boolean error2 = false;
         boolean error3 = false;
-        try
-        {
-            WebDriverWait wait = new WebDriverWait(driver,10);
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, 10);
             wait.until(ExpectedConditions.urlToBe("http://localhost:8080/#!/welcome"));
             helper.getDriver().get("http://localhost:8080/#!/vets");
             wait.until(ExpectedConditions.urlToBe("http://localhost:8080/#!/vets"));
@@ -83,41 +83,35 @@ public class VetsUpdateSeleniumTest
             assertThat(initialEmail.getAttribute("value"), is("carter.james@email.com"));
             WebElement initialWorkDays = helper.getDriver().findElement(By.xpath("//*[@id=\"workDays\"]"));
             assertThat(initialWorkDays.getAttribute("value"), is("Monday, Tuesday, Friday"));
-            WebElement initialSpecialtyRadiology =  helper.getDriver().findElement(By.xpath("//*[@id=\"radiology\"]"));
+            WebElement initialSpecialtyRadiology = helper.getDriver().findElement(By.xpath("//*[@id=\"radiology\"]"));
             assertFalse(initialSpecialtyRadiology.isSelected());
-            WebElement initialSpecialtySurgery =  helper.getDriver().findElement(By.xpath("//*[@id=\"surgery\"]"));
+            WebElement initialSpecialtySurgery = helper.getDriver().findElement(By.xpath("//*[@id=\"surgery\"]"));
             assertFalse(initialSpecialtySurgery.isSelected());
-            WebElement initialSpecialtyDentistry =  helper.getDriver().findElement(By.xpath("//*[@id=\"dentistry\"]"));
+            WebElement initialSpecialtyDentistry = helper.getDriver().findElement(By.xpath("//*[@id=\"dentistry\"]"));
             assertFalse(initialSpecialtyDentistry.isSelected());
-            WebElement initialSpecialtyGeneral =  helper.getDriver().findElement(By.xpath("//*[@id=\"general\"]"));
+            WebElement initialSpecialtyGeneral = helper.getDriver().findElement(By.xpath("//*[@id=\"general\"]"));
             assertTrue(initialSpecialtyGeneral.isSelected());
-            WebElement initialIsActive =  helper.getDriver().findElement(By.xpath("//*[@id=\"vetForm\"]/div/div[10]/div[1]/label/input"));
+            WebElement initialIsActive = helper.getDriver().findElement(By.xpath("//*[@id=\"vetForm\"]/div/div[10]/div[1]/label/input"));
             assertTrue(initialIsActive.isSelected());
-        }
-        catch (AssertionError e)
-        {
+        } catch (AssertionError e) {
             e.printStackTrace();
             error = true;
             throw new AssertionError(e);
-        }
-        finally
-        {
-            if(error == false)
-            {
+        } finally {
+            if (error == false) {
                 takeSnapShot(driver, SCREENSHOTS + "/pass/checkInitialVetFields_" + System.currentTimeMillis() + ".png");
-            }
-            else
-            {
-                takeSnapShot(driver, SCREENSHOTS+"/fail/checkInitialVetFields_"+System.currentTimeMillis()+".png");
+            } else {
+                takeSnapShot(driver, SCREENSHOTS + "/fail/checkInitialVetFields_" + System.currentTimeMillis() + ".png");
             }
         }
-        try
-        {
+        try {
 
             helper.getDriver().findElement(By.xpath("//*[@id=\"firstName\"]")).sendKeys("Update");
             helper.getDriver().findElement(By.xpath("//*[@id=\"lastName\"]")).sendKeys("Update");
             WebElement changeEmail = helper.getDriver().findElement(By.xpath("//*[@id=\"email\"]"));
-            for(int i = 0; i < 9; i++) { changeEmail.sendKeys(Keys.BACK_SPACE);}
+            for (int i = 0; i < 9; i++) {
+                changeEmail.sendKeys(Keys.BACK_SPACE);
+            }
             helper.getDriver().findElement(By.xpath("//*[@id=\"email\"]")).sendKeys("gmail.com");
             helper.getDriver().findElement(By.xpath("//*[@id=\"phoneNumber\"]")).sendKeys(Keys.BACK_SPACE);
             helper.getDriver().findElement(By.xpath("//*[@id=\"phoneNumber\"]")).sendKeys("1");
@@ -127,7 +121,7 @@ public class VetsUpdateSeleniumTest
             helper.getDriver().findElement(By.xpath("//*[@id=\"vetForm\"]/div/div[10]/div[2]/label/input")).click();
             helper.getDriver().findElement(By.xpath("//*[@id=\"vetForm\"]/div/button")).sendKeys(Keys.SPACE);
 
-            WebDriverWait wait = new WebDriverWait(driver,10);
+            WebDriverWait wait = new WebDriverWait(driver, 10);
             wait.until(ExpectedConditions.urlToBe("http://localhost:8080/#!/vets"));
             WebElement previewName = helper.getDriver().findElement(By.xpath("//*[@id=\"bg\"]/div/div/div/ui-view/vet-list/table/tbody/tr[1]/td[2]/a/span"));
             assertThat(previewName.getText(), is("JamesUpdate CarterUpdate"));
@@ -139,30 +133,20 @@ public class VetsUpdateSeleniumTest
             assertThat(previewPhone.getText(), is("carter.james@gmail.com"));
 
 
-
-
-        }
-        catch (AssertionError e2)
-        {
+        } catch (AssertionError e2) {
             e2.printStackTrace();
             error2 = true;
             throw new AssertionError(e2);
-        }
-        finally
-        {
-            if(error2 == false)
-            {
+        } finally {
+            if (error2 == false) {
                 takeSnapShot(driver, SCREENSHOTS + "/pass/checkUpdatedFieldsInList_" + System.currentTimeMillis() + ".png");
-            }
-            else
-            {
-                takeSnapShot(driver, SCREENSHOTS+"/fail/checkUpdatedFieldsInList_"+System.currentTimeMillis()+".png");
+            } else {
+                takeSnapShot(driver, SCREENSHOTS + "/fail/checkUpdatedFieldsInList_" + System.currentTimeMillis() + ".png");
             }
         }
-        try
-        {
+        try {
 
-            WebDriverWait wait = new WebDriverWait(driver,10);
+            WebDriverWait wait = new WebDriverWait(driver, 10);
             helper.getDriver().findElement(By.xpath("//*[@id=\"bg\"]/div/div/div/ui-view/vet-list/table/tbody/tr[1]/td[2]/a/span")).click();
             wait.until(ExpectedConditions.urlToBe("http://localhost:8080/#!/vets/details/234568"));
 
@@ -185,22 +169,15 @@ public class VetsUpdateSeleniumTest
             assertThat(button.getText(), is("Show availabilities"));
 
 
-        }
-        catch (AssertionError e3)
-        {
+        } catch (AssertionError e3) {
             e3.printStackTrace();
             error3 = true;
             throw new AssertionError(e3);
-        }
-        finally
-        {
-            if(error3 == false)
-            {
+        } finally {
+            if (error3 == false) {
                 takeSnapShot(driver, SCREENSHOTS + "/pass/checkUpdatedFieldsInDetails_" + System.currentTimeMillis() + ".png");
-            }
-            else
-            {
-                takeSnapShot(driver, SCREENSHOTS+"/fail/checkUpdatedFieldsInDetails_"+System.currentTimeMillis()+".png");
+            } else {
+                takeSnapShot(driver, SCREENSHOTS + "/fail/checkUpdatedFieldsInDetails_" + System.currentTimeMillis() + ".png");
             }
         }
         helper.getDriver().quit();
