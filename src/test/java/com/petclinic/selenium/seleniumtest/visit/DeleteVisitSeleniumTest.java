@@ -27,7 +27,7 @@ public class DeleteVisitSeleniumTest {
 
     WebDriver driver;
     SeleniumLoginTestHelper helper;
-    private final String SCREENSHOTS = "./src/test/onDemandScreenshots/delete";
+    private final String SCREENSHOTS = "./src/test/onDemandVisitServiceScreenshots/delete";
 
     public DeleteVisitSeleniumTest(FirefoxDriver driver) {
         this.driver = driver;

@@ -27,7 +27,7 @@ import static org.hamcrest.Matchers.sameInstance;
 @ExtendWith(SeleniumExtension.class)
 public class CreateVisitSeleniumTest {
     ChromeDriver driver;
-    private final String SCREENSHOTS = "./src/test/onDemandScreenshots/create";
+    private final String SCREENSHOTS = "./src/test/onDemandVisitServiceScreenshots/create";
 
     public CreateVisitSeleniumTest(ChromeDriver driver) {
         this.driver = driver;
