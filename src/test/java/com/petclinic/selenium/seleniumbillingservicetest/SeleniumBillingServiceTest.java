@@ -107,19 +107,35 @@ public class SeleniumBillingServiceTest {
     @Test
     @DisplayName("Test a snapshot to delete the bill")
     public void takeBillingServiceDelete(TestInfo testInfo) throws Exception {
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         WebElement billsTab = helper.getDriver().findElement(By.id("navbarDropdown1"));
         billsTab.click();
 
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         WebElement billHistoryLink = helper.getDriver().findElement(By.xpath("//a[@href='#!/bills']"));
         billHistoryLink.click();
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         WebDriverWait wait = new WebDriverWait(driver,2);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//table[@class='table table-striped']")));
 
         WebElement table = helper.getDriver().findElement(By.xpath("//table[@class='table table-striped']"));
         List<WebElement> rows = table.findElements(By.tagName("tr"));
-        List<WebElement> buttons = driver.findElements(By.xpath("//button[contains(text(),'Delete Bill')]"));
+        List<WebElement> buttons = driver.findElements(By.xpath("//*[@id=\"billId\"]/td[5]/a"));
         buttons.get(0).click();
+        driver.switchTo().alert().accept();
         String method = testInfo.getDisplayName();
         takeSnapShot(helper.getDriver(), SCREENSHOTS + "\\" + method + "_" + System.currentTimeMillis() + ".png");
 
