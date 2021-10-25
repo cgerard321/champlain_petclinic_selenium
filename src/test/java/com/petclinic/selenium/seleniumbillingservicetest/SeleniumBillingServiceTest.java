@@ -58,10 +58,10 @@ public class SeleniumBillingServiceTest {
     @Test
     @DisplayName("Test to see if the history page loads")
     public void takeBillingServiceSnapshot(TestInfo testInfo) throws Exception {
-        WebElement billsTab = helper.getDriver().findElement(By.id("navbarDropdown1"));
+        WebElement billsTab = helper.getDriver().findElement(By.linkText("Bills"));
         billsTab.click();
 
-        WebElement billHistoryLink = helper.getDriver().findElement(By.id("Bills"));
+        WebElement billHistoryLink = helper.getDriver().findElement(By.linkText("Bills"));
         billHistoryLink.click();
 
         WebElement billHistoryHeader = helper.getDriver().findElement(By.className("titleOwner"));
@@ -79,12 +79,8 @@ public class SeleniumBillingServiceTest {
     @Test
     @DisplayName("Test a snapshot to get the table data")
     public void takeBillingServiceHistoryPageSnapshot(TestInfo testInfo) throws Exception {
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        WebElement billsTab = helper.getDriver().findElement(By.id("Bills"));
+
+        WebElement billsTab = helper.getDriver().findElement(By.linkText("Bills"));
         billsTab.click();
 
         WebElement billHistoryLink = helper.getDriver().findElement(By.xpath("//a[@href='#!/bills']"));
@@ -127,7 +123,7 @@ public class SeleniumBillingServiceTest {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-       String id = helper.getDriver().findElement(By.xpath("//*[@id=\"billId\"]/td[2]")).getText();
+       String id = helper.getDriver().findElement(By.xpath("//*[@id=\"billId\"]/td[3]")).getText();
 
        assertThat(id, is("59.99"));
 
