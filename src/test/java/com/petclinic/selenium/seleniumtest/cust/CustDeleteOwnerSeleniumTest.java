@@ -70,7 +70,6 @@ public class CustDeleteOwnerSeleniumTest {
         takeSnapshot(driver, SCREENSHOTS + "\\" + method + "_" + System.currentTimeMillis() + ".png");
         Thread.sleep(2000);
         helper.getDriver().findElement(By.xpath("//a[@href='#!/owners/details/5']")).click();
-        takeSnapshot(driver, SCREENSHOTS + "\\" + method + "_" + System.currentTimeMillis() + ".png");
         Thread.sleep(2000);
         wait.until(ExpectedConditions.urlToBe("http://localhost:8080/#!/owners/details/5"));
         Thread.sleep(5000);
