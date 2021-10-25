@@ -15,8 +15,12 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.File;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+/**
+ * @Author Louis-P. Simard
+ * Date: October 12, 2021
+ * Ticket: feat(CUST-CPC-420): Implement Selenium Test for deleteOwner
+ * Selenium Test for deleteOwner. Pretty simple.
+ */
 
 @ExtendWith(SeleniumExtension.class)
 public class CustDeleteOwnerSeleniumTest {
@@ -26,7 +30,7 @@ public class CustDeleteOwnerSeleniumTest {
     //Use to fill the login form
     SeleniumLoginTestHelper helper;
 
-    private final String SCREENSHOTS = "./src/test/onDemandCustomerServiceScreenshots";
+    private final String SCREENSHOTS = "./src/test/onDemandCustServiceScreenshots/DeleteOwner";
 
     public CustDeleteOwnerSeleniumTest(ChromeDriver driver){
         this.driver = driver;
@@ -62,17 +66,18 @@ public class CustDeleteOwnerSeleniumTest {
         WebDriverWait wait = new WebDriverWait(driver, 10);
         wait.until(ExpectedConditions.urlToBe("http://localhost:8080/#!/welcome"));
         helper.getDriver().get("http://localhost:8080/#!/owners");
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[@href='#!/owners/details/3']")));
-        helper.getDriver().findElement(By.xpath("//a[@href='#!/owners/details/2']")).click();
-        wait.until(ExpectedConditions.urlToBe("http://localhost:8080/#!/owners/details/3"));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[@href='#!/owners/details/4']")));
+        helper.getDriver().findElement(By.xpath("//a[@href='#!/owners/details/4']")).click();
+        wait.until(ExpectedConditions.urlToBe("http://localhost:8080/#!/owners/details/4"));
         Thread.sleep(5000);
         WebElement deleteButton = driver.findElement(By.xpath("//*[contains(text(),'Delete Owner')]"));
         deleteButton.click();
+        wait.until(ExpectedConditions.urlToBe("http://localhost:8080/#!/owners/4/delete"));
         Thread.sleep(2000);
         WebElement submitButton = driver.findElement(By.xpath("//*[contains(text(),'Submit')]"));
         submitButton.click();
         Thread.sleep(5000);
-        ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[@href='#!/owners/details/3']"));
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//a[@href='#!/owners/details/4']")));
         String method = testInfo.getDisplayName();
         takeSnapshot(driver, SCREENSHOTS + "\\" + method + "_" + System.currentTimeMillis() + ".png");
 
