@@ -3,6 +3,7 @@ package com.petclinic.selenium.seleniumtest.visit;
 import com.petclinic.selenium.SeleniumLoginTestHelper;
 import io.github.bonigarcia.seljup.SeleniumExtension;
 import org.apache.commons.io.FileUtils;
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -18,12 +19,15 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.io.File;
 import java.util.concurrent.TimeUnit;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 @ExtendWith(SeleniumExtension.class)
 public class CancelVisitSeleniumTest {
 
     WebDriver driver;
     SeleniumLoginTestHelper helper;
-    private final String SCREENSHOTS = "./src/test/onDemandVisitServiceScreenshots";
+    private final String SCREENSHOTS = "./src/test/onDemandVisitServiceScreenshots/cancel";
 
     public CancelVisitSeleniumTest(FirefoxDriver driver) {
         this.driver = driver;
@@ -78,6 +82,13 @@ public class CancelVisitSeleniumTest {
         //waits until the confirm button for the confirmation is visible and clicks it
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#confirmationModalConfirmButton")));
         driver.findElement(By.cssSelector("#confirmationModalConfirmButton")).click();
+
+        // Assert that the alert says the right thing
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("alert")));
+        WebElement success_alert = driver.findElement(By.className("alert"));
+        assertThat(success_alert.getText(),
+                Matchers.anyOf(Matchers.is("Successfully cancelled visit!"),
+                        Matchers.is("Successfully reverted cancel on visit!")));
 
         //takes a screenshot with the success notification
         takeSnapShot(driver, SCREENSHOTS + "\\" + testInfo.getDisplayName() + "_" + System.currentTimeMillis() + ".png");

@@ -27,7 +27,7 @@ import static org.hamcrest.Matchers.sameInstance;
 @ExtendWith(SeleniumExtension.class)
 public class CreateVisitSeleniumTest {
     ChromeDriver driver;
-    private final String SCREENSHOTS = "./src/test/onDemandScreenshots";
+    private final String SCREENSHOTS = "./src/test/onDemandScreenshots/create";
 
     public CreateVisitSeleniumTest(ChromeDriver driver) {
         this.driver = driver;
@@ -57,23 +57,9 @@ public class CreateVisitSeleniumTest {
         //wait max 5 seconds before a timeout
         WebDriverWait wait=new WebDriverWait(driver, 5);
 
-        //setting up path and window size
-        driver.get("http://localhost:8080");
-        driver.manage().window().maximize();
-
-        //enter authentication information
-        driver.findElement(By.id("email")).sendKeys("admin");
-        driver.findElement(By.id("pwd")).sendKeys("admin");
-        driver.findElement(By.id("button")).click();
-
-
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.linkText("Owners")));
 
-
-
-
-
-                //navigation to visits page
+        //navigation to visits page
         driver.findElement(By.linkText("Owners")).click();
 
         //wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"navbarSupportedContent\"]/ul[1]/li[4]/div/a[1]")));
@@ -86,12 +72,7 @@ public class CreateVisitSeleniumTest {
         a1 = driver.findElement(By.linkText("Add Visit"));
         a1.click();
 
-
-
-
-
         //Selecting the vet : "Helen"
-
         TimeUnit.SECONDS.sleep(2);//special case because it's a textbox
 
         driver.findElement(By.xpath("//*[@id=\"selectedVet\"]/option[1]")).click();
@@ -101,30 +82,25 @@ public class CreateVisitSeleniumTest {
         assertThat(selectedVet, is("Helen Leary"));
 
 
-            // Necessary scroll
+        // Necessary scroll
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("window.scrollBy(0,250)", "");
 
         driver.findElement(By.xpath("//*[@id=\"selectedVet\"]/option[3]")).click();
-         TimeUnit.SECONDS.sleep(1);
+        TimeUnit.SECONDS.sleep(1);
 
-
-            //typing TestVisitDescription inside the text box labelled "description"
-
+        //typing TestVisitDescription inside the text box labelled "description"
         driver.findElement(By.xpath("//*[@id=\'description_textarea\']")).sendKeys("TestVisitDescription");
 
+        driver.findElement(By.id("submit_button")).click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("confirmationModalConfirmButton")));
 
+        driver.findElement(By.id("confirmationModalConfirmButton")).click();
 
-       driver.findElement(By.id("submit_button")).click();
-       wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("confirmationModalConfirmButton")));
-
-       driver.findElement(By.id("confirmationModalConfirmButton")).click();
-
-            //For console display purposes
+        //For console display purposes
         String testname = "TestVisitDescription";
 
-            // Checks the document if the string is part of it.
-
+        // Checks the document if the string is part of it.
         if ( driver.getPageSource().contains("TestVisitDescription")){
             System.out.println("Text: " + testname + " was created successfully. ");
             assertThat( driver.getPageSource().contains("TestVisitDescription"), is(Boolean.TRUE));
@@ -132,8 +108,6 @@ public class CreateVisitSeleniumTest {
             System.out.println("Text: " + testname + " was NOT created successfully. ");
 
         }
-
-
 
         try {
             Thread.sleep(2000);
