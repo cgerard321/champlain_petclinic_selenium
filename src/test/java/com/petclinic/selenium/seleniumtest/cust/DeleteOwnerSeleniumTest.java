@@ -72,11 +72,6 @@ public class DeleteOwnerSeleniumTest {
         WebElement deleteButton = driver.findElement(By.xpath("//*[contains(text(),'Delete Owner')]"));
         deleteButton.click();
 
-        Thread.sleep(2000);
-
-        WebElement deleteButton = driver.findElement(By.xpath("//*[contains(text(),'Delete Owner')]"));
-        deleteButton.click();
-
         WebElement submitButton = driver.findElement(By.xpath("//*[contains(text(),'Submit')]"));
         submitButton.click();
 
