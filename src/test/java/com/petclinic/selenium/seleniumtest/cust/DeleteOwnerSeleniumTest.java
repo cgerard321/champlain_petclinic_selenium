@@ -13,6 +13,9 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.io.File;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
 @ExtendWith(SeleniumExtension.class)
 public class DeleteOwnerSeleniumTest {
 
@@ -49,12 +52,20 @@ public class DeleteOwnerSeleniumTest {
     @Test
     public void test_DeleteOwner_Selenium(TestInfo testInfo) throws Exception{
 
-        driver.get("http://localhost:8080/owners/9");
+        driver.get("http://localhost:8080/#!/owners");
         driver.manage().window().maximize();
 
-        WebElement deleteButton = driver.findElement(By.xpath("//input[@name='']"));
+        WebElement owner = driver.findElement(By.xpath("//a[@href='#!/owners/details/1']"));
+        assertEquals(owner, "George Franklin");
+        owner.click();
+
+        WebElement deleteButton = driver.findElement(By.xpath("//*[contains(text(),'Delete Owner')]"));
         deleteButton.click();
 
+        WebElement submitButton = driver.findElement(By.xpath("//*[contains(text(),'Submit')]"));
+        submitButton.click();
+
+        assertNull(driver.findElement(By.xpath("//a[@href='#!/owners/details/1']")));
 
         String method = testInfo.getDisplayName();
         takeSnapshot(driver, SCREENSHOTS + "\\" + method + "_" + System.currentTimeMillis() + ".png");
